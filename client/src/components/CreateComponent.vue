@@ -49,7 +49,10 @@
     },
     methods: {
       addClient(){
-          console.log(this.client);
+        let uri = 'http://localhost:4000/clients/add';
+        this.axios.post(uri, this.client).then(() => {
+          this.$router.push({name: 'clients'});
+        });
       }
     }
   }
