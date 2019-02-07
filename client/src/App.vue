@@ -11,7 +11,7 @@
           <router-link to="/create" class="nav-link">New Client</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/posts" class="nav-link">Clients</router-link>
+          <router-link to="/clients" class="nav-link">Clients</router-link>
         </li>
       </ul>
     </nav><br />

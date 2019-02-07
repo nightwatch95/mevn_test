@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const PORT = 4000;
+const PORT = 4002;
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./DB.js')
+const clientRoute = require('./client.route');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
@@ -15,6 +16,8 @@ mongoose.connect(config.DB, { useNewUrlParser: true }).then(
 app.use(cors);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use('/clients', clientRoute);
 
 app.listen(PORT, function(){
     console.log('Server is running on Port:',PORT);
