@@ -1,7 +1,7 @@
 const express = require('express');
 const clientRoutes = express.Router();
 
-let Client = require('./client.model');
+let Client = require('../models/client');
 
 clientRoutes.route('/add').post(function (req, res) {
     let client = new Client(req.body); // req.body.client. изменить в клиенте тоже 
