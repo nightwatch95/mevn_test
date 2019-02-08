@@ -3,14 +3,14 @@ const clientRoutes = express.Router();
 
 let Client = require('./client.model');
 
-clientRoutes.route('/add').post(function(req, res) {
-    let client = new Client(req.body);
+clientRoutes.route('/add').post(function (req, res) {
+    let client = new Client(req.body); // req.body.client. изменить в клиенте тоже 
     client.save()
         .then(() => {
             res.status(200).json({'business': 'business in added successfully'});
         })
         .catch(() => {
-            res.status(400).send("unable to save to database");
+            res.status(400).send("unable to save to database"); // incorrect status. send doesnt complete response. google it. req res methods
         });
 });
 

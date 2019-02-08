@@ -43,9 +43,9 @@
 <script>
   export default {
     data(){
-        return{
-            client:{}
-        }
+        return {
+            client: {}
+        };
     },
     methods: {
       addClient(){
