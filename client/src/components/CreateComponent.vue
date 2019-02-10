@@ -50,7 +50,7 @@
     methods: {
       addClient(){
         let uri = 'http://localhost:4000/clients/add';
-        this.axios.post(uri, this.client).then(() => {
+        this.axios.post(uri, { client: this.client }).then(() => {
           this.$router.push({name: 'clients'});
         });
       }

@@ -4,10 +4,10 @@ const clientRoutes = express.Router();
 let Client = require('../models/client');
 
 clientRoutes.route('/add').post(function (req, res) {
-    let client = new Client(req.body); // req.body.client. изменить в клиенте тоже 
+    let client = new Client(req.body.client); // req.body.client. изменить в клиенте тоже 
     client.save()
         .then(() => {
-            res.status(200).json({'business': 'business in added successfully'});
+            res.status(200).json({'business': 'business is added successfully'});
         })
         .catch(() => {
             res.status(400).send("unable to save to database"); // incorrect status. send doesnt complete response. google it. req res methods
@@ -41,10 +41,10 @@ clientRoutes.route('/update/:id').post(function(req, res) {
             res.status(404).send('Client is not found');
         }
         else {
-            client.name = req.body.name;
-            client.email = req.body.email;
-            client.phone = req.body.phone;
-            client.providers = req.body.providers;
+            client.name = req.body.client.name;
+            client.email = req.body.client.email;
+            client.phone = req.body.client.phone;
+            client.providers = req.body.client.providers;
             client.save().then(() => {
                 res.json('Update complete');
             })
