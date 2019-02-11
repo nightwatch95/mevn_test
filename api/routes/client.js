@@ -3,19 +3,19 @@ const clientRoutes = express.Router();
 
 let Client = require('../models/client');
 
-clientRoutes.route('/add').post(function (req, res) {
-    let client = new Client(req.body.client); // req.body.client. изменить в клиенте тоже 
+clientRoutes.route('/add').post((req, res) => {
+    let client = new Client(req.body.client);
     client.save()
         .then(() => {
             res.status(200).json({'business': 'business is added successfully'});
         })
         .catch(() => {
-            res.status(400).send("unable to save to database"); // incorrect status. send doesnt complete response. google it. req res methods
+            res.status(400).send("unable to save to database");
         });
 });
 
-clientRoutes.route('/').get(function(req, res) {
-    Client.find(function(err, clients) {
+clientRoutes.route('/').get((req, res) => {
+    Client.find((err, clients) => {
         if(err){
             res.json(err);
         }
@@ -25,9 +25,9 @@ clientRoutes.route('/').get(function(req, res) {
     });
 });
 
-clientRoutes.route('/edit/:id').get(function(req, res) {
+clientRoutes.route('/edit/:id').get((req, res) => {
     let id = req.params.id;
-    Client.findById(id, function(err, client) {
+    Client.findById(id, (err, client) => {
         if (err) {
             res.json(err);
         }
@@ -35,8 +35,8 @@ clientRoutes.route('/edit/:id').get(function(req, res) {
     })
 });
 
-clientRoutes.route('/update/:id').post(function(req, res) {
-    Client.findById(req.params.id, function(err, client) {
+clientRoutes.route('/update/:id').post((req, res) => {
+    Client.findById(req.params.id, (err, client) => {
         if (!client) {
             res.status(404).send('Client is not found');
         }
@@ -55,8 +55,8 @@ clientRoutes.route('/update/:id').post(function(req, res) {
     });
 });
 
-clientRoutes.route('/delete/:id').delete(function(req, res) {
-    Client.findByIdAndRemove({_id: req.params.id}, function(err) {
+clientRoutes.route('/delete/:id').delete((req, res) => {
+    Client.findByIdAndRemove({_id: req.params.id}, err => {
         if (err)
             res.json(err);
         else

@@ -52,7 +52,7 @@
     created() {
       let uri = `http://localhost:4000/clients/edit/${this.$route.params.id}`;
       this.axios.get(uri).then(response => {
-        this.client = response.data; // change to response.data.client
+        this.client = response.data;
       });
     },
     methods: {

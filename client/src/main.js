@@ -16,6 +16,7 @@ import HomeComponent from './components/HomeComponent.vue';
 import CreateComponent from './components/CreateComponent.vue';
 import IndexComponent from './components/IndexComponent.vue';
 import EditComponent from './components/EditComponent.vue';
+import NotFoundComponent from './components/NotFoundComponent.vue';
 
 const routes = [
   {
@@ -37,7 +38,15 @@ const routes = [
     name: 'edit',
     path: '/edit/:id',
     component: EditComponent
-  }
+  },
+  { 
+    path: '/404', 
+    component: NotFoundComponent
+  },  
+  { 
+    path: '*', 
+    redirect: '/404' 
+  }, 
 ];
 
 const router = new VueRouter({ mode: 'history', routes: routes });

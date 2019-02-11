@@ -25,10 +25,11 @@
 </template>
 
 <script>
-import HomeComponent from './components/HomeComponent.vue'
-import CreateComponent from './components/CreateComponent.vue'
+import HomeComponent from './components/HomeComponent.vue';
+import CreateComponent from './components/CreateComponent.vue';
 import IndexComponent from './components/IndexComponent.vue';
 import EditComponent from './components/EditComponent.vue';
+import NotFoundComponent from './components/NotFoundComponent.vue';
 
 export default {
   name: 'app',
@@ -36,7 +37,8 @@ export default {
     HomeComponent,
     CreateComponent,
     IndexComponent,
-    EditComponent
+    EditComponent,
+    NotFoundComponent
   }
 }
 </script>

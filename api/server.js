@@ -19,6 +19,6 @@ app.use(bodyParser.json());
 
 app.use('/clients', clientRoute);
 
-app.listen(PORT, function(){
+app.listen(PORT, () => {
     console.log('Server is running on Port:',PORT);
 });
