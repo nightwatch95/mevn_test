@@ -4,7 +4,7 @@
         <div class="row">
           <div class="col-md-10"></div>
           <div class="col-md-2">
-            <router-link :to="{ name: 'create' }" class="btn btn-primary">Create Client</router-link>
+            <router-link :to="{ name: 'createClient' }" class="btn btn-primary">Add client</router-link>
           </div>
         </div><br />
 
@@ -24,7 +24,7 @@
                   <td>{{ client.email }}</td>
                   <td>{{ client.phone }}</td>
                   <td>{{ client.providers }}</td>
-                  <td><router-link :to="{name: 'edit', params: { id: client._id }}" class="btn btn-primary">Edit</router-link></td>
+                  <td><router-link :to="{name: 'editClient', params: { id: client._id }}" class="btn btn-primary">Edit</router-link></td>
                   <td><button class="btn btn-danger" @click.prevent="deleteClient(client._id)">Delete</button></td>
                 </tr>
             </tbody>

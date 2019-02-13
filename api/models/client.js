@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Provider = require('../models/provider');
 
 let Client = new Schema({
     name: {
@@ -12,7 +13,7 @@ let Client = new Schema({
         type: String
     },
     providers: {
-        type: String
+        type: [{type: Schema.Types.ObjectId, ref: 'Provider'}]
     }
 }, {
     collection: 'clients'

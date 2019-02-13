@@ -5,13 +5,10 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link to="/" class="nav-link">Home</router-link>
+          <router-link to="/" class="nav-link">Clients</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/create" class="nav-link">Create Client</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/clients" class="nav-link">Clients</router-link>
+          <router-link to="/providers" class="nav-link">Providers</router-link>
         </li>
       </ul>
     </nav><br />
@@ -24,22 +21,10 @@
   </div>
 </template>
 
-<script>
-import HomeComponent from './components/HomeComponent.vue';
-import CreateComponent from './components/CreateComponent.vue';
-import IndexComponent from './components/IndexComponent.vue';
-import EditComponent from './components/EditComponent.vue';
-import NotFoundComponent from './components/NotFoundComponent.vue';
+ <script>
 
 export default {
-  name: 'app',
-  components: {
-    HomeComponent,
-    CreateComponent,
-    IndexComponent,
-    EditComponent,
-    NotFoundComponent
-  }
+  name: 'App'
 }
 </script>
 

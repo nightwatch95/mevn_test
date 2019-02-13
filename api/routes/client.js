@@ -20,6 +20,7 @@ clientRoutes.route('/').get((req, res) => {
             res.json(err);
         }
         else {
+            
             res.json(clients);
         }
     });

@@ -5,7 +5,7 @@
               <div class="card-header">404 Not Found</div>
 
               <div class="card-body">
-                  Sorry, page doesn't exist.
+                  Sorry, the page doesn't exist.
               </div>
           </div>
       </div>

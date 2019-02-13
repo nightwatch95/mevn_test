@@ -1,54 +1,61 @@
 import Vue from 'vue'
 import App from './App.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import VueRouter from 'vue-router'
+import VueAxios from 'vue-axios'
+import axios from 'axios'
+import CreateClient from './components/clients/Create.vue'
+import ClientsList from './components/clients/ClientsList.vue'
+import EditClient from './components/clients/Edit.vue'
+import CreateProvider from './components/providers/Create.vue'
+import EditProvider from './components/providers/Edit.vue'
+import ProvidersList from './components/providers/ProvidersList.vue'
+import NotFound from './components/NotFound.vue'
 
-import VueRouter from 'vue-router';
 Vue.use(VueRouter);
-
-import VueAxios from 'vue-axios';
-import axios from 'axios';
-
 Vue.use(VueAxios, axios);
-
 Vue.config.productionTip = false
-
-import HomeComponent from './components/HomeComponent.vue';
-import CreateComponent from './components/CreateComponent.vue';
-import IndexComponent from './components/IndexComponent.vue';
-import EditComponent from './components/EditComponent.vue';
-import NotFoundComponent from './components/NotFoundComponent.vue';
 
 const routes = [
   {
-    name: 'home',
-    path: '/',
-    component: HomeComponent
-  },
-  {
-    name: 'create',
-    path: '/create',
-    component: CreateComponent
+    name: 'createClient',
+    path: '/createClient',
+    component: CreateClient
   },
   {
     name: 'clients',
-    path: '/clients',
-    component: IndexComponent
+    path: '/',
+    component: ClientsList
   },
   {
-    name: 'edit',
-    path: '/edit/:id',
-    component: EditComponent
+    name: 'editClient',
+    path: '/editClient/:id',
+    component: EditClient
+  }, 
+  {
+    name: 'createProvider',
+    path: '/createProvider',
+    component: CreateProvider
+  },
+  {
+    name: 'providers',
+    path: '/providers',
+    component: ProvidersList
+  },
+  {
+    name: 'editProvider',
+    path: '/editProvider',
+    component : EditProvider
   },
   { 
     path: '/404', 
-    component: NotFoundComponent
-  },  
+    component: NotFound
+  },
   { 
     path: '*', 
     redirect: '/404' 
-  }, 
+  }
 ];
 
 const router = new VueRouter({ mode: 'history', routes: routes });
-
 new Vue(Vue.util.extend({ router }, App)).$mount('#app');
