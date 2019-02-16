@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueRouter from 'vue-router'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
@@ -14,6 +16,7 @@ import NotFound from './components/NotFound.vue'
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
+Vue.use(BootstrapVue);
 Vue.config.productionTip = false
 
 const routes = [

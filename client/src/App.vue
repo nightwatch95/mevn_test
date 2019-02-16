@@ -1,23 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link">Clients</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/providers" class="nav-link">Providers</router-link>
-        </li>
-      </ul>
-    </nav><br />
-
-    <transition name="fade">
-      <router-view>
-
-      </router-view>
-    </transition>
+    <router-view></router-view>
   </div>
 </template>
 

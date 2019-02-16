@@ -31,7 +31,8 @@
   export default {
     data() {
       return {
-        providers: []
+        providers: [],
+        displayFields: ['name', 'actions']
       };
     },
     created() {

@@ -42,6 +42,8 @@
 
 <script>
   export default {
+    name: 'createClient',
+    
     data(){
         return {
             client: {}
