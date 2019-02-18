@@ -29,7 +29,8 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>Providers:</label>
-              <textarea class="form-control" v-model="client.providers" rows="5"></textarea>
+              <router-link :to="{ name: 'addProvider' }" class="btn btn-primary">Add provider</router-link>
+              <providerslist ref="providersList"></providerslist>
             </div>
           </div>
         </div><br />
@@ -41,7 +42,10 @@
 </template>
 
 <script>
+  import ClientsService from '@/services/ClientsService'
+  
   export default {
+
     data(){
         return {
             client: {}

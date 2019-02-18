@@ -6,10 +6,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueRouter from 'vue-router'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
-import CreateClient from './components/clients/Create.vue'
-import ClientsList from './components/clients/ClientsList.vue'
+import AddClient from './components/clients/Create.vue'
+import Clients from './components/clients/Clients.vue'
 import EditClient from './components/clients/Edit.vue'
-import CreateProvider from './components/providers/Create.vue'
+import AddProvider from './components/providers/AddProvider.vue'
 import EditProvider from './components/providers/Edit.vue'
 import ProvidersList from './components/providers/ProvidersList.vue'
 import NotFound from './components/NotFound.vue'
@@ -17,18 +17,26 @@ import NotFound from './components/NotFound.vue'
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 Vue.use(BootstrapVue);
+Vue.component('addClient', AddClient)
+Vue.component('clients', Clients)
+Vue.component('editClient', EditClient)
+Vue.component('addProvider', AddProvider)
+Vue.component('editProvider', EditProvider)
+Vue.component('providersList', ProvidersList)
+Vue.component('notFound', NotFound)
+
 Vue.config.productionTip = false
 
 const routes = [
   {
-    name: 'createClient',
-    path: '/createClient',
-    component: CreateClient
+    name: 'addClient',
+    path: '/addClient',
+    component: AddClient
   },
   {
     name: 'clients',
     path: '/',
-    component: ClientsList
+    component: Clients
   },
   {
     name: 'editClient',
@@ -36,13 +44,13 @@ const routes = [
     component: EditClient
   }, 
   {
-    name: 'createProvider',
-    path: '/createProvider',
-    component: CreateProvider
+    name: 'addProvider',
+    path: '/addProvider',
+    component: AddProvider
   },
   {
-    name: 'providers',
-    path: '/providers',
+    name: 'providersList',
+    path: '/providersList',
     component: ProvidersList
   },
   {
@@ -60,5 +68,12 @@ const routes = [
   }
 ];
 
+new Vue({
+  el: '#app',
+  router,
+  components: { App },
+  template: '<App/>'
+})
+
 const router = new VueRouter({ mode: 'history', routes: routes });
-new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+//new Vue(Vue.util.extend({ router }, App)).$mount('#app');

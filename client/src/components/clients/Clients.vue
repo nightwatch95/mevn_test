@@ -23,7 +23,11 @@
                   <td>{{ client.name }}</td>
                   <td>{{ client.email }}</td>
                   <td>{{ client.phone }}</td>
-                  <td>{{ client.providers }}</td>
+                  <td>
+                    <span v-for="provider in client.providers" v-bind:key="provider.id">
+                      {{ provider.name }}
+                    </span>
+                  </td>
                   <td><router-link :to="{name: 'editClient', params: { id: client._id }}" class="btn btn-primary">Edit</router-link></td>
                   <td><button class="btn btn-danger" @click.prevent="deleteClient(client._id)">Delete</button></td>
                 </tr>
@@ -34,6 +38,8 @@
 
 <script>
   export default {
+    name: 'clients',
+
     data() {
       return {
         clients: []
