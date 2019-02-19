@@ -43,14 +43,18 @@
 
 <script>
   import ClientsService from '@/services/ClientsService'
-  
+  import providerslist from '@/components/providers/ProvidersList'
+
   export default {
     name: 'addClient',
-    
+
     data(){
         return {
             client: {}
         };
+    },
+    components: {
+      providerslist
     },
     methods: {
         addClient(){

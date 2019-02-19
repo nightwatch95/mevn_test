@@ -4,7 +4,7 @@
         <div class="row">
           <div class="col-md-10"></div>
           <div class="col-md-2">
-            <router-link :to="{ name: 'createClient' }" class="btn btn-primary">Add client</router-link>
+            <router-link :to="{ name: 'addClient' }" class="btn btn-primary">Add client</router-link>
           </div>
         </div><br />
 

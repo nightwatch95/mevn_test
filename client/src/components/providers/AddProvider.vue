@@ -17,7 +17,9 @@
 </template>
 
 <script>
-  export default {
+import ProvidersService from '@/services/ProvidersService'
+
+export default {
     name: 'addProvider',
     
     data(){
@@ -32,6 +34,5 @@
                 this.$router.push({name: 'providers'});
             });
         }
-    }
-  }
+    }}
 </script>

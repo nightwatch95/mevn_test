@@ -68,12 +68,5 @@ const routes = [
   }
 ];
 
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
-
 const router = new VueRouter({ mode: 'history', routes: routes });
-//new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+new Vue(Vue.util.extend({ router }, App)).$mount('#app');

@@ -2,7 +2,7 @@
   <div>
         <b-table>
             <span>Hello from providers table</span>
-            <!-- <thead>
+            <thead>
               <tr>
                 <th>Id</th>
                 <th>Name</th>
@@ -15,21 +15,23 @@
                   <td><router-link :to="{name: 'editProvider', params: { id: provider._id }}" class="btn btn-primary">Edit</router-link></td>
                   <td><button class="btn btn-danger" @click.prevent="deleteProvider(provider._id)">Delete</button></td>
                 </tr>
-            </tbody> -->
+            </tbody>
         </b-table>
   </div>
 </template>
 
 <script>
-  export default {
+import ProvidersService from '@/services/ProvidersService'
+
+export default {
     name: 'providersList',
 
-    // data() {
-    //   return {
-    //     providers: [],
-    //     fields: [ 'name', 'actions' ]
-    //   };
-    // },
+    data() {
+      return {
+        providers: [],
+        fields: [ 'name', 'actions' ]
+      };
+    }
 
     // mounted () {
     //   this.getProviders()
@@ -50,5 +52,5 @@
     //     });
     //   }
     // }
-  };
+};
 </script>
