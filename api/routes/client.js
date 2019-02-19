@@ -7,7 +7,7 @@ clientRoutes.route('/add').post((req, res) => {
     let client = new Client(req.body.client);
     client.save()
         .then(() => {
-            res.status(200).json({'business': 'business is added successfully'});
+            res.status(200).json({'business': 'Client is added successfully'});
         })
         .catch(() => {
             res.status(400).send("unable to save to database");

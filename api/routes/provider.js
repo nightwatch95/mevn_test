@@ -7,7 +7,7 @@ providerRoutes.route('/add').post((req, res) => {
     let provider = new Provider(req.body.provider);
     provider.save()
         .then(() => {
-            res.status(200).json({'business': 'business is added successfully'});
+            res.status(200).json({'business': 'Provider is added successfully'});
         })
         .catch(() => {
             res.status(400).send("unable to save to database");

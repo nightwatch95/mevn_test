@@ -10,14 +10,14 @@
           </div>
         </div><br />
         <div class="form-group">
-          <button class="btn btn-primary">Create provider</button>
+          <button class="btn btn-primary">Add provider</button>
         </div>
     </form>
   </div>
 </template>
 
 <script>
-import ProvidersService from '@/services/ProvidersService'
+// import ProvidersService from '@/services/ProvidersService'
 
 export default {
     name: 'addProvider',
