@@ -1,15 +1,8 @@
 <template>
   <div>
-      <h1>Providers</h1>
-        <div class="row">
-          <div class="col-md-10"></div>
-          <div class="col-md-2">
-            <router-link :to="{ name: 'createProvider' }" class="btn btn-primary">Add provider</router-link>
-          </div>
-        </div><br />
-
-        <table class="table table-hover">
-            <thead>
+        <b-table>
+            <span>Hello from providers table</span>
+            <!-- <thead>
               <tr>
                 <th>Id</th>
                 <th>Name</th>
@@ -22,32 +15,40 @@
                   <td><router-link :to="{name: 'editProvider', params: { id: provider._id }}" class="btn btn-primary">Edit</router-link></td>
                   <td><button class="btn btn-danger" @click.prevent="deleteProvider(provider._id)">Delete</button></td>
                 </tr>
-            </tbody>
-        </table>
+            </tbody> -->
+        </b-table>
   </div>
 </template>
 
 <script>
   export default {
-    data() {
-      return {
-        providers: [],
-        displayFields: ['name', 'actions']
-      };
-    },
-    created() {
-      let uri = 'http://localhost:4000/providers';
-      this.axios.get(uri).then(response => {
-        this.providers = response.data;
-      });
-    },
-    methods: {
-      deleteProvider(id) {
-        let uri = `http://localhost:4000/providers/delete/${id}`;
-        this.axios.delete(uri).then(response => {
-          this.providers.splice(this.providers.indexOf(id), 1);
-        });
-      }
-    }
+    name: 'providersList',
+
+    // data() {
+    //   return {
+    //     providers: [],
+    //     fields: [ 'name', 'actions' ]
+    //   };
+    // },
+
+    // mounted () {
+    //   this.getProviders()
+    //   this.$root.$on('providersListChanged', () => this.getProviders())
+    // },
+
+    // created() {
+    //   let uri = 'http://localhost:4000/providers';
+    //   this.axios.get(uri).then(response => {
+    //     this.providers = response.data;
+    //   });
+    // },
+    // methods: {
+    //   deleteProvider(id) {
+    //     let uri = `http://localhost:4000/providers/delete/${id}`;
+    //     this.axios.delete(uri).then(response => {
+    //       this.providers.splice(this.providers.indexOf(id), 1);
+    //     });
+    //   }
+    // }
   };
 </script>

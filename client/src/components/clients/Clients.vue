@@ -24,7 +24,7 @@
                   <td>{{ client.email }}</td>
                   <td>{{ client.phone }}</td>
                   <td>
-                    <span v-for="provider in client.providers" :key="provider.id">
+                    <span v-for="provider in client.providers" v-bind:key="provider.id">
                       {{ provider.name }}
                     </span>
                   </td>
@@ -38,6 +38,8 @@
 
 <script>
   export default {
+    name: 'clients',
+
     data() {
       return {
         clients: []

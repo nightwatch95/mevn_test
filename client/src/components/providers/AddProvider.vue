@@ -18,6 +18,8 @@
 
 <script>
   export default {
+    name: 'addProvider',
+    
     data(){
         return {
             provider: {}
