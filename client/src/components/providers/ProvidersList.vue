@@ -10,7 +10,7 @@
               </b-form-checkbox>
             </template>
             <template slot="actions" slot-scope="data">
-              <b-btn size="sm" class="btn btn-success" @click="editProvider(data.item)">Edit</b-btn>
+              <router-link :to="{ name: 'editProvider', params: { id: data.item._id} }" size="sm" class="btn btn-success">Edit</router-link>
               <b-btn size="sm" class="btn btn-danger" @click="deleteProvider(data.item._id)">Delete</b-btn>
             </template>
         </b-table>
@@ -38,10 +38,6 @@ export default {
     },
 
     methods: {
-      editProvider(provider) {
-        
-      },
-
       deleteProvider(id) {
         let uri = `http://localhost:4000/providers/delete/${id}`;
         this.axios.delete(uri).then(response => {

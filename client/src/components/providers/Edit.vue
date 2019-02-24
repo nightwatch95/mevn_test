@@ -20,6 +20,8 @@
 
 <script>
   export default {
+    name: 'editProvider',
+
     data () {
       return {
         provider: {}
