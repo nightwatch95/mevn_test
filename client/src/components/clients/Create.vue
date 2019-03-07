@@ -35,7 +35,7 @@
           </div>
         </div><br />
         <div class="form-group">
-          <button class="btn btn-primary">Create</button>
+          <button class="btn btn-primary">{{ buttonText }}</button>
         </div>
     </form>
   </div>
@@ -43,17 +43,24 @@
 
 <script>
   import ClientsService from '@/services/ClientsService'
-  
+  import providerslist from '@/components/providers/ProvidersList'
+
   export default {
+    name: 'addClient',
 
     data(){
         return {
-            client: {}
+            client: {},
+            buttonText: "Create"
         };
+    },
+    components: {
+      providerslist
     },
     methods: {
         addClient(){
           let uri = 'http://localhost:4000/clients/add';
+          client.providers = this.$refs.providerslist.selected;
           this.axios.post(uri, { client: this.client }).then(() => {
             this.$router.push({name: 'clients'});
           });

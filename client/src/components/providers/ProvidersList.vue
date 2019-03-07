@@ -1,54 +1,49 @@
 <template>
   <div>
-        <b-table>
-            <span>Hello from providers table</span>
-            <!-- <thead>
-              <tr>
-                <th>Id</th>
-                <th>Name</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr v-for="provider in providers" :key="provider._id">
-                  <td>{{ provider._id }}</td>
-                  <td>{{ provider.name }}</td>
-                  <td><router-link :to="{name: 'editProvider', params: { id: provider._id }}" class="btn btn-primary">Edit</router-link></td>
-                  <td><button class="btn btn-danger" @click.prevent="deleteProvider(provider._id)">Delete</button></td>
-                </tr>
-            </tbody> -->
+        <b-table striped hover bordered :items='providers' :fields='fields'>
+            <template slot="name" slot-scope="data" width="300">
+              <b-form-checkbox v-model="data.item.selected"
+                              :value=true
+                              :unchecked-value=false
+                              :id="data.item._id">
+                {{ data.item.name }}
+              </b-form-checkbox>
+            </template>
+            <template slot="actions" slot-scope="data">
+              <router-link :to="{ name: 'editProvider', params: { id: data.item._id} }" size="sm" class="btn btn-success">Edit</router-link>
+              <b-btn size="sm" class="btn btn-danger" @click="deleteProvider(data.item._id)">Delete</b-btn>
+            </template>
         </b-table>
   </div>
 </template>
 
 <script>
-  export default {
+import ProvidersService from '@/services/ProvidersService'
+
+export default {
     name: 'providersList',
 
-    // data() {
-    //   return {
-    //     providers: [],
-    //     fields: [ 'name', 'actions' ]
-    //   };
-    // },
+    data() {
+      return {
+         providers: [],
+         fields: [ 'name', 'actions' ]
+      };
+    },
 
-    // mounted () {
-    //   this.getProviders()
-    //   this.$root.$on('providersListChanged', () => this.getProviders())
-    // },
+    created() {
+      let uri = 'http://localhost:4000/providers';
+      this.axios.get(uri).then(response => {
+        this.providers = response.data;
+      });
+    },
 
-    // created() {
-    //   let uri = 'http://localhost:4000/providers';
-    //   this.axios.get(uri).then(response => {
-    //     this.providers = response.data;
-    //   });
-    // },
-    // methods: {
-    //   deleteProvider(id) {
-    //     let uri = `http://localhost:4000/providers/delete/${id}`;
-    //     this.axios.delete(uri).then(response => {
-    //       this.providers.splice(this.providers.indexOf(id), 1);
-    //     });
-    //   }
-    // }
-  };
+    methods: {
+      deleteProvider(id) {
+        let uri = `http://localhost:4000/providers/delete/${id}`;
+        this.axios.delete(uri).then(response => {
+          this.providers.splice(this.providers.indexOf(id), 1);
+        });
+      }
+    }
+};
 </script>

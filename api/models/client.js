@@ -1,16 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Provider = require('../models/provider');
 
 let Client = new Schema({
     name: {
-        type: String
+        type: String,
+        unique: true,
+        required: true
     },
     email: {
-        type: String
+        type: String,
+        unique: true,
+        required: true
     },
     phone: {
-        type: String
+        type: String,
+        unique: true,
+        required: true
     },
     providers: {
         type: [{type: Schema.Types.ObjectId, ref: 'Provider'}]

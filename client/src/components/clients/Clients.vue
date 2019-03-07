@@ -4,7 +4,7 @@
         <div class="row">
           <div class="col-md-10"></div>
           <div class="col-md-2">
-            <router-link :to="{ name: 'createClient' }" class="btn btn-primary">Add client</router-link>
+            <router-link :to="{ name: 'addClient' }" class="btn btn-primary">Add client</router-link>
           </div>
         </div><br />
 
@@ -19,7 +19,7 @@
               </tr>
             </thead>
             <tbody>
-                <tr v-for="client in clients" :key="client._id">
+                <tr v-for="client in clients" v-bind:key="client._id">
                   <td>{{ client.name }}</td>
                   <td>{{ client.email }}</td>
                   <td>{{ client.phone }}</td>

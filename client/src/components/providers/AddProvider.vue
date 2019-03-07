@@ -10,14 +10,16 @@
           </div>
         </div><br />
         <div class="form-group">
-          <button class="btn btn-primary">Create provider</button>
+          <button class="btn btn-primary">Add provider</button>
         </div>
     </form>
   </div>
 </template>
 
 <script>
-  export default {
+// import ProvidersService from '@/services/ProvidersService'
+
+export default {
     name: 'addProvider',
     
     data(){
@@ -32,6 +34,5 @@
                 this.$router.push({name: 'providers'});
             });
         }
-    }
-  }
+    }}
 </script>

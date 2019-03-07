@@ -49,8 +49,8 @@ const routes = [
     component: AddProvider
   },
   {
-    name: 'providersList',
-    path: '/providersList',
+    name: 'providers',
+    path: '/providers',
     component: ProvidersList
   },
   {
