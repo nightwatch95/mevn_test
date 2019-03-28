@@ -1,6 +1,11 @@
 <template>
-  <div>
-        <b-table striped hover bordered :items='providers' :fields='fields'>
+  <div class="container">
+        <b-table striped
+				 hover
+				 bordered
+				 small
+				 :items='providers'
+				 :fields='fields'>
             <template slot="name" slot-scope="data" width="300">
               <b-form-checkbox v-model="data.item.selected"
                               :value=true
@@ -10,10 +15,12 @@
               </b-form-checkbox>
             </template>
             <template slot="actions" slot-scope="data">
-              <router-link :to="{ name: 'editProvider', params: { id: data.item._id} }" size="sm" class="btn btn-success">Edit</router-link>
-              <b-btn size="sm" class="btn btn-danger" @click="deleteProvider(data.item._id)">Delete</b-btn>
+              <!-- <router-link :to="{ name: 'editProvider', params: { id: data.item._id} }" size="sm" class="btn btn-success">Edit</router-link> -->
+              <b-btn size="sm" variant="outline-primary" @click="editProvider(data.item)">Edit</b-btn>
+			  <b-btn size="sm" variant="danger" @click="deleteProvider(data.item._id)">Delete</b-btn>
             </template>
         </b-table>
+		<router-link :to="{ name: 'addProvider' }" class="link ">Add provider</router-link>
   </div>
 </template>
 
@@ -47,3 +54,10 @@ export default {
     }
 };
 </script>
+
+<style type="text/css">
+	.link {
+		display: block;
+		text-align: left;
+	}
+</style>

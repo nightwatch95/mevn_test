@@ -1,14 +1,13 @@
 <template>
-  <div>
+  <div class="container">
       <h1>Clients</h1>
-        <div class="row">
-          <div class="col-md-10"></div>
-          <div class="col-md-2">
-            <router-link :to="{ name: 'addClient' }" class="btn btn-primary">Add client</router-link>
-          </div>
+	  <div v-if="clients.length > 0" class="table-wrap">
+		<div class="row">
+			<div class="col-md-2">
+				<router-link :to="{ name: 'addClient' }" class="btn btn-primary">Add client</router-link>
+			</div>
         </div><br />
-
-        <table class="table table-hover">
+        <table class="table table-sm">
             <thead>
               <tr>
                 <th>Name</th>
@@ -28,11 +27,19 @@
                       {{ provider.name }}
                     </span>
                   </td>
-                  <td><router-link :to="{name: 'editClient', params: { id: client._id }}" class="btn btn-primary">Edit</router-link></td>
-                  <td><button class="btn btn-danger" @click.prevent="deleteClient(client._id)">Delete</button></td>
+                  <td>
+					  <router-link :to="{name: 'editClient', params: { id: client._id }}" class="btn btn-primary">Edit</router-link>
+					  <button class="btn btn-danger" @click.prevent="deleteClient(client._id)">Delete</button>
+				  </td>
                 </tr>
             </tbody>
         </table>
+	  </div>
+	  <div v-else>
+		There are no clients.. Lets add one now <br /><br />
+		<router-link :to="{ name: 'addClient' }">Add client</router-link>
+	  </div>
+
   </div>
 </template>
 
@@ -61,3 +68,11 @@
     }
   };
 </script>
+
+<style type="text/css">
+	.container {
+		width: 70%;
+    	margin-left: auto;
+    	margin-right: auto;
+	}
+</style>

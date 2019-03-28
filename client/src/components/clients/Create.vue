@@ -1,44 +1,35 @@
 <template>
-  <div>
-    <form @submit.prevent="addClient">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Name:</label>
-            <input type="text" class="form-control" v-model="client.name">
-          </div>
-        </div>
-      </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-            <div class="form-group">
-                <label>Email:</label>
-                <input type="text" class="form-control" v-model="client.email">
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Phone:</label>
-                    <input type="text" class="form-control" v-model="client.phone">
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Providers:</label>
-              <router-link :to="{ name: 'addProvider' }" class="btn btn-primary">Add provider</router-link>
-              <providerslist ref="providersList"></providerslist>
-            </div>
-          </div>
-        </div><br />
+    <form @submit.prevent="addClient" class="container">
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">Name:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" v-model="client.name">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">Email:</label>
+			<div class="col-sm-10">
+				<input type="email" class="form-control" v-model="client.email">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">Phone:</label>
+			<div class="col-sm-10">
+				<input type="tel" pattern="^\d{4}-\d{3}-\d{4}$" class="form-control" required v-model="client.phone">
+			</div>
+		</div>
+		<fieldset class="form-group">
+			<div class="row">
+				<legend class="col-form-label col-sm-2 pt-0">Providers:</legend>
+				<div class="col-sm-10">
+					<providerslist ref="providersList"></providerslist>
+				</div>
+			</div>
+		</fieldset><br />
         <div class="form-group">
           <button class="btn btn-primary">{{ buttonText }}</button>
         </div>
     </form>
-  </div>
 </template>
 
 <script>
@@ -69,3 +60,10 @@
 }
 </script>
 
+<style type="text/css">
+	.container {
+		max-width: 70%;
+    	margin-left: auto;
+    	margin-right: auto;
+	}
+</style>
