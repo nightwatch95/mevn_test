@@ -18,7 +18,7 @@
 					</b-form-checkbox> -->
 					<td>{{ provider.name }}</td>
 					<td align="center">
-						<router-link :to="{name: 'editProvider', params: { id: provider._id }}">Edit</router-link>
+						<router-link :to="{name: 'editProvider', params: { id: provider._id }}">Edit</router-link> |
 						<a href="#" @click.prevent="deleteProvider(provider._id)">Delete</a>
 					</td>
 				</tr>
@@ -47,11 +47,12 @@ export default {
     },
 
     methods: {
-      deleteProvider(id) {
-        let uri = `http://localhost:4000/providers/delete/${id}`;
-        this.axios.delete(uri).then(response => {
-          this.providers.splice(this.providers.indexOf(id), 1);
-        });
+      async deleteProvider(id) {
+        // let uri = `http://localhost:4000/providers/delete/${id}`;
+        // this.axios.delete(uri).then(response => {
+        //   this.providers.splice(this.providers.indexOf(id), 1);
+		// });
+		ProvidersService.deleteProvider(id);
       }
     }
 };

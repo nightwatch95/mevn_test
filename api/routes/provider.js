@@ -1,20 +1,29 @@
 const express = require('express');
-const providerRoutes = express.Router();
+const bodyParser = require('body-parser')
+const cors = require('cors')
 
-let Provider = require('../models/provider');
+const app = express()
+app.use(bodyParser.json())
+app.use(cors())
 
-providerRoutes.route('/add').post((req, res) => {
+const mongodb_conn_module = require('./mongodbConnModule');
+var db = mongodb_conn_module.connect();
+
+let Provider = require('../models/provider')
+
+app.post('/add_provider', (req, res) => {
     let provider = new Provider(req.body.provider);
-    provider.save()
-        .then(() => {
-            res.status(200).json({'business': 'Provider is added successfully'});
-        })
-        .catch(() => {
-            res.status(400).send("unable to save to database");
-        });
+    provider.save(function (error) {
+		if (error) {
+			console.log(error)
+		}
+		res.send({
+			success: true
+		})
+	});
 });
 
-providerRoutes.route('/').get((req, res) => {
+app.get('/providers', (req, res) => {
     Provider.find((err, providers) => {
         if(err){
             res.json(err);
@@ -25,7 +34,7 @@ providerRoutes.route('/').get((req, res) => {
     });
 });
 
-providerRoutes.route('/edit/:id').get((req, res) => {
+app.get('/provider/:id', (req, res) => {
     let id = req.params.id;
     Provider.findById(id, (err, provider) => {
         if (err) {
@@ -35,7 +44,7 @@ providerRoutes.route('/edit/:id').get((req, res) => {
     });
 });
 
-providerRoutes.route('/update/:id').post((req, res) => {
+app.put('/providers/:id', (req, res) => {
     Provider.findById(req.params.id, (err, provider) => {
         if (!provider) {
             res.status(404).send('provider is not found');
@@ -52,7 +61,7 @@ providerRoutes.route('/update/:id').post((req, res) => {
     });
 });
 
-providerRoutes.route('/delete/:id').delete((req, res) => {
+app.delete('/providers/:id', (req, res) => {
     Provider.findByIdAndRemove({_id: req.params.id}, err => {
         if (err)
             res.json(err);
@@ -61,4 +70,4 @@ providerRoutes.route('/delete/:id').delete((req, res) => {
     });
 });
 
-module.exports = providerRoutes;
+app.listen(process.env.PORT || 8081)

@@ -27,7 +27,7 @@
 
 <script>
   import ClientsService from '@/services/ClientsService'
-  import providerslist from '@/components/providers/ProvidersList'
+  import providerslist from '@/components/Providers'
 
   export default {
     name: 'addClient',

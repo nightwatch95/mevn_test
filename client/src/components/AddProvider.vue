@@ -13,22 +13,24 @@
 </template>
 
 <script>
-// import ProvidersService from '@/services/ProvidersService'
-
+import ProvidersService from '@/services/ProvidersService'
 export default {
     name: 'addProvider',
-
     data(){
         return {
             provider: {}
         };
     },
     methods: {
-        addProvider() {
-            let uri = 'http://localhost:4000/providers/add';
-            this.axios.post(uri, { provider: this.provider }).then(() => {
-                this.$router.push({name: 'providers'});
-            });
+        async addProvider() {
+            // let uri = 'http://localhost:4000/providers/addProvider';
+            // this.axios.post(uri, { provider: this.provider }).then(() => {
+            //     this.$router.push({name: 'providers'});
+			// });
+			await ProvidersService.addProvider({
+				provider: this.provider
+			});
+			this.$router.push({ name: 'ProvidersList'});
         }
     }}
 </script>
@@ -51,7 +53,7 @@ export default {
   text-transform: uppercase;
   font-size: 12px;
   font-weight: bold;
-  width: 520px;
+  width: 500px;
   border: none;
   cursor: pointer;
 }
