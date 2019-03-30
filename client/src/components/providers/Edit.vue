@@ -1,21 +1,15 @@
 <template>
-  <div>
-    <h1>Edit provider</h1>
-    <form @submit.prevent="updateProvider">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Name:</label>
-              <input type="text" class="form-control" v-model="provider.name">
-            </div>
-          </div>
-        </div>
-        <br />
-        <div class="form-group">
-          <button class="btn btn-primary">Update</button>
-        </div>
-    </form>
-  </div>
+	<div class="providers">
+    	<h1>Edit Provider</h1>
+		<div class="form">
+			<div>
+				<input type="text" name="title" placeholder="NAME" v-model="provider.name">
+			</div>
+			<div>
+				<button class="app_provider_btn" @click="updateProvider">Update</button>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -43,3 +37,27 @@
     }
   };
 </script>
+
+<style type="text/css">
+.form input, .form textarea {
+  width: 500px;
+  padding: 10px;
+  border: 1px solid #e0dede;
+  outline: none;
+  font-size: 12px;
+}
+.form div {
+  margin: 20px;
+}
+.app_provider_btn {
+  background: #4d7ef7;
+  color: #fff;
+  padding: 10px 80px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  width: 520px;
+  border: none;
+  cursor: pointer;
+}
+</style>

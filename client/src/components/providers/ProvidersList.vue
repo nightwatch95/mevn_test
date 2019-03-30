@@ -1,27 +1,30 @@
 <template>
-  <div class="container">
-        <b-table striped
-				 hover
-				 bordered
-				 small
-				 :items='providers'
-				 :fields='fields'>
-            <template slot="name" slot-scope="data" width="300">
-              <b-form-checkbox v-model="data.item.selected"
-                              :value=true
-                              :unchecked-value=false
-                              :id="data.item._id">
-                {{ data.item.name }}
-              </b-form-checkbox>
-            </template>
-            <template slot="actions" slot-scope="data">
-              <!-- <router-link :to="{ name: 'editProvider', params: { id: data.item._id} }" size="sm" class="btn btn-success">Edit</router-link> -->
-              <b-btn size="sm" variant="outline-primary" @click="editProvider(data.item)">Edit</b-btn>
-			  <b-btn size="sm" variant="danger" @click="deleteProvider(data.item._id)">Delete</b-btn>
-            </template>
-        </b-table>
-		<router-link :to="{ name: 'addProvider' }" class="link ">Add provider</router-link>
-  </div>
+  	<div class="providers">
+		<div class="table-wrap">
+			<div>
+				<router-link :to="{ name: 'addProvider' }" class="">Add provider</router-link>
+			</div>
+			<table>
+				<tr>
+					<td>Name</td>
+					<td align="center">Actions</td>
+				</tr>
+				<tr v-for="provider in providers" v-bind:key="provider._id">
+					<!-- <b-form-checkbox v-model="data.item.selected"
+						:value=true
+						:unchecked-value=false
+						:id="data.item._id">
+					{{ data.item.name }}
+					</b-form-checkbox> -->
+					<td>{{ provider.name }}</td>
+					<td align="center">
+						<router-link :to="{name: 'editProvider', params: { id: provider._id }}">Edit</router-link>
+						<a href="#" @click.prevent="deleteProvider(provider._id)">Delete</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+  	</div>
 </template>
 
 <script>
@@ -32,8 +35,7 @@ export default {
 
     data() {
       return {
-         providers: [],
-         fields: [ 'name', 'actions' ]
+         providers: []
       };
     },
 
@@ -56,8 +58,37 @@ export default {
 </script>
 
 <style type="text/css">
-	.link {
-		display: block;
-		text-align: left;
-	}
+.table-wrap {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+table th, table tr {
+  text-align: left;
+}
+table thead {
+  background: #f2f2f2;
+}
+table tr td {
+  padding: 10px;
+}
+table tr:nth-child(odd) {
+  background: #f2f2f2;
+}
+table tr:nth-child(1) {
+  background: #4d7ef7;
+  color: #fff;
+}
+a {
+  color: #4d7ef7;
+  text-decoration: none;
+}
+a.add_provider_link {
+  background: #4d7ef7;
+  color: #fff;
+  padding: 10px 80px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+}
 </style>

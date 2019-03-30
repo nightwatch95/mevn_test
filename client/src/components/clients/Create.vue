@@ -1,35 +1,28 @@
 <template>
-    <form @submit.prevent="addClient" class="container">
-		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Name:</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" v-model="client.name">
+    <div class="clients">
+		<h1>Add Client</h1>
+      	<div class="form">
+        	<div>
+				<label for="name">Name:</label>
+          		<input id="name" type="text" name="title" placeholder="Name" v-model="client.name">
+        	</div>
+        	<div>
+				<label for="email">Email:</label>
+          		<input id="email" type="text" placeholder="somebox@gmail.com" v-model="client.email">
+        	</div>
+			<div>
+				<label for="phone">Phone:</label>
+          		<input id="phone" type="text" placeholder="+1 234 456 78 90" v-model="client.phone">
+        	</div>
+			<div>
+				<label for="providers">Providers:</label>
+				<!-- <providerslist ref="providersList"></providerslist> -->
+			</div>
+			<div>
+				<button class="app_client_btn" @click="addClient">Add</button>
 			</div>
 		</div>
-		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Email:</label>
-			<div class="col-sm-10">
-				<input type="email" class="form-control" v-model="client.email">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label class="col-sm-2 col-form-label">Phone:</label>
-			<div class="col-sm-10">
-				<input type="tel" pattern="^\d{4}-\d{3}-\d{4}$" class="form-control" required v-model="client.phone">
-			</div>
-		</div>
-		<fieldset class="form-group">
-			<div class="row">
-				<legend class="col-form-label col-sm-2 pt-0">Providers:</legend>
-				<div class="col-sm-10">
-					<providerslist ref="providersList"></providerslist>
-				</div>
-			</div>
-		</fieldset><br />
-        <div class="form-group">
-          <button class="btn btn-primary">{{ buttonText }}</button>
-        </div>
-    </form>
+    </div>
 </template>
 
 <script>
@@ -41,8 +34,7 @@
 
     data(){
         return {
-            client: {},
-            buttonText: "Create"
+            client: {}
         };
     },
     components: {
@@ -61,9 +53,30 @@
 </script>
 
 <style type="text/css">
-	.container {
-		max-width: 70%;
-    	margin-left: auto;
-    	margin-right: auto;
+	.form input, .form textarea {
+		width: 500px;
+		padding: 10px;
+		border: 1px solid #e0dede;
+		outline: none;
+		font-size: 12px;
+	}
+	.form div {
+		margin: 20px;
+	}
+	.app_post_btn {
+		background: #4d7ef7;
+		color: #fff;
+		padding: 10px 80px;
+		text-transform: uppercase;
+		font-size: 12px;
+		font-weight: bold;
+		width: 520px;
+		border: none;
+		cursor: pointer;
+	}
+	label {
+		display: inline-block;
+    	text-align: left;
+    	width: 80px;
 	}
 </style>

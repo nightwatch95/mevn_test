@@ -1,45 +1,24 @@
 <template>
-  <div>
-    <h1>Edit Client</h1>
-    <form @submit.prevent="updateClient">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Name:</label>
-              <input type="text" class="form-control" v-model="client.name">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Email</label>
-              <input type="text" class="form-control" v-model="client.email">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Phone</label>
-              <input type="text" class="form-control" v-model="client.phone">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Providers</label>
-              <textarea class="form-control" v-model="client.providers" rows="5"></textarea>
-            </div>
-          </div>
-        </div>
-        <br />
-        <div class="form-group">
-          <button class="btn btn-primary">Update</button>
-        </div>
-    </form>
-  </div>
+    <div class="clients">
+		<h1>Edit Client</h1>
+      	<div class="form">
+        	<div>
+          		<input type="text" name="title" placeholder="NAME" v-model="client.name">
+        	</div>
+        	<div>
+          		<textarea rows="15" cols="15" placeholder="EMAIL" v-model="client.email"></textarea>
+        	</div>
+			<div>
+          		<textarea rows="15" cols="15" placeholder="PHONE" v-model="client.phone"></textarea>
+        	</div>
+			<div>
+				<providerslist ref="providersList"></providerslist>
+			</div>
+			<div>
+				<button class="app_client_btn" @click="updateClient">Update</button>
+			</div>
+		</div>
+    </div>
 </template>
 
 <script>
@@ -65,3 +44,27 @@
     }
   };
 </script>
+
+<style type="text/css">
+	.form input, .form textarea {
+		width: 500px;
+		padding: 10px;
+		border: 1px solid #e0dede;
+		outline: none;
+		font-size: 12px;
+	}
+	.form div {
+		margin: 20px;
+	}
+	.app_post_btn {
+		background: #4d7ef7;
+		color: #fff;
+		padding: 10px 80px;
+		text-transform: uppercase;
+		font-size: 12px;
+		font-weight: bold;
+		width: 520px;
+		border: none;
+		cursor: pointer;
+	}
+</style>
