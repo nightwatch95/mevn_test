@@ -1,17 +1,9 @@
 const express = require('express');
-const bodyParser = require('body-parser')
-const cors = require('cors')
-
-const app = express()
-app.use(bodyParser.json())
-app.use(cors())
-
-const mongodb_conn_module = require('./mongodbConnModule');
-var db = mongodb_conn_module.connect();
+const router = express.Router();
 
 let Provider = require('../models/provider')
 
-app.post('/add_provider', (req, res) => {
+router.post('/add_provider', (req, res) => {
     let provider = new Provider(req.body.provider);
     provider.save(function (error) {
 		if (error) {
@@ -23,7 +15,7 @@ app.post('/add_provider', (req, res) => {
 	});
 });
 
-app.get('/providers', (req, res) => {
+router.get('/providers', (req, res) => {
     Provider.find((err, providers) => {
         if(err){
             res.json(err);
@@ -34,7 +26,7 @@ app.get('/providers', (req, res) => {
     });
 });
 
-app.get('/provider/:id', (req, res) => {
+router.get('/provider/:id', (req, res) => {
     let id = req.params.id;
     Provider.findById(id, (err, provider) => {
         if (err) {
@@ -44,7 +36,7 @@ app.get('/provider/:id', (req, res) => {
     });
 });
 
-app.put('/providers/:id', (req, res) => {
+router.put('/providers/:id', (req, res) => {
     Provider.findById(req.params.id, (err, provider) => {
         if (!provider) {
             res.status(404).send('provider is not found');
@@ -61,7 +53,7 @@ app.put('/providers/:id', (req, res) => {
     });
 });
 
-app.delete('/providers/:id', (req, res) => {
+router.delete('/providers/:id', (req, res) => {
     Provider.findByIdAndRemove({_id: req.params.id}, err => {
         if (err)
             res.json(err);
@@ -70,4 +62,4 @@ app.delete('/providers/:id', (req, res) => {
     });
 });
 
-app.listen(process.env.PORT || 8081)
+module.exports = router;
