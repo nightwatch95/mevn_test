@@ -3,7 +3,7 @@ const router = express.Router();
 
 let Provider = require('../models/provider')
 
-router.post('/add_provider', (req, res) => {
+router.post('/add', (req, res) => {
     let provider = new Provider(req.body.provider);
     provider.save(function (error) {
 		if (error) {
@@ -15,7 +15,7 @@ router.post('/add_provider', (req, res) => {
 	});
 });
 
-router.get('/providers', (req, res) => {
+router.get('/', (req, res) => {
     Provider.find((err, providers) => {
         if(err){
             res.json(err);
@@ -26,17 +26,7 @@ router.get('/providers', (req, res) => {
     });
 });
 
-router.get('/provider/:id', (req, res) => {
-    let id = req.params.id;
-    Provider.findById(id, (err, provider) => {
-        if (err) {
-            res.json(err);
-        }
-        res.json(provider);
-    });
-});
-
-router.put('/providers/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     Provider.findById(req.params.id, (err, provider) => {
         if (!provider) {
             res.status(404).send('provider is not found');
@@ -53,7 +43,7 @@ router.put('/providers/:id', (req, res) => {
     });
 });
 
-router.delete('/providers/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     Provider.findByIdAndRemove({_id: req.params.id}, err => {
         if (err)
             res.json(err);

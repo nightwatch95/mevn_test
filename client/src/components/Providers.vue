@@ -1,5 +1,5 @@
 <template>
-  	<div class="providers">
+	<div class="providers">
 		<div class="table-wrap">
 			<div>
 				<router-link :to="{ name: 'addProvider' }" class="">Add provider</router-link>
@@ -24,7 +24,7 @@
 				</tr>
 			</table>
 		</div>
-  	</div>
+	</div>
 </template>
 
 <script>
@@ -39,22 +39,23 @@ export default {
       };
     },
 
-    created() {
-      let uri = 'http://localhost:4000/providers';
-      this.axios.get(uri).then(response => {
-        this.providers = response.data;
-      });
-    },
+    mounted () {
+		this.getProviders();
+	},
 
-    methods: {
-      async deleteProvider(id) {
-        // let uri = `http://localhost:4000/providers/delete/${id}`;
-        // this.axios.delete(uri).then(response => {
-        //   this.providers.splice(this.providers.indexOf(id), 1);
-		// });
-		ProvidersService.deleteProvider(id);
-      }
-    }
+	methods: {
+		async getProviders () {
+			const response = await ProvidersService.fetchProviders();
+			this.providers = response.data.providers;
+		},
+		async deleteProvider(id) {
+			// let uri = `http://localhost:4000/providers/delete/${id}`;
+			// this.axios.delete(uri).then(response => {
+			//   this.providers.splice(this.providers.indexOf(id), 1);
+			// });
+			ProvidersService.deleteProvider(id);
+		}
+	}
 };
 </script>
 

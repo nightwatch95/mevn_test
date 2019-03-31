@@ -6,15 +6,11 @@ export default {
   },
 
   addProvider (params) {
-    return Api().post('add_provider', params);
+    return Api().post('providers/add', params);
   },
 
   updateProvider (params) {
     return Api().put('providers/' + params.id, params);
-  },
-
-  getProvider(params) {
-	return Api().get('provider/' + params.id);
   },
 
   deleteProvider (id) {
