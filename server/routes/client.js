@@ -1,9 +1,9 @@
 const express = require('express');
-const clientRoutes = express.Router();
+const router = express.Router();
 
 let Client = require('../models/client');
 
-clientRoutes.route('/add').post((req, res) => {
+router.route('/add').post((req, res) => {
     let client = new Client(req.body.client);
     client.save()
         .then(() => {
@@ -14,19 +14,19 @@ clientRoutes.route('/add').post((req, res) => {
         });
 });
 
-clientRoutes.route('/').get((req, res) => {
+router.route('/').get((req, res) => {
     Client.find((err, clients) => {
         if(err){
             res.json(err);
         }
         else {
-            
+
             res.json(clients);
         }
     });
 });
 
-clientRoutes.route('/edit/:id').get((req, res) => {
+router.route('/edit/:id').get((req, res) => {
     let id = req.params.id;
     Client.findById(id, (err, client) => {
         if (err) {
@@ -36,7 +36,7 @@ clientRoutes.route('/edit/:id').get((req, res) => {
     })
 });
 
-clientRoutes.route('/update/:id').post((req, res) => {
+router.route('/update/:id').post((req, res) => {
     Client.findById(req.params.id, (err, client) => {
         if (!client) {
             res.status(404).send('Client is not found');
@@ -56,7 +56,7 @@ clientRoutes.route('/update/:id').post((req, res) => {
     });
 });
 
-clientRoutes.route('/delete/:id').delete((req, res) => {
+router.route('/delete/:id').delete((req, res) => {
     Client.findByIdAndRemove({_id: req.params.id}, err => {
         if (err)
             res.json(err);
@@ -65,4 +65,4 @@ clientRoutes.route('/delete/:id').delete((req, res) => {
     });
 });
 
-module.exports = clientRoutes;
+module.exports = router;

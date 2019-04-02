@@ -23,14 +23,10 @@ export default {
   },
   methods: {
     async addProvider() {
-      // let uri = 'http://localhost:4000/providers/addProvider';
-      // this.axios.post(uri, { provider: this.provider }).then(() => {
-      //     this.$router.push({name: 'providers'});
-      // });
       await ProvidersService.addProvider({
         provider: this.provider
       });
-      this.$router.push({ name: "Providers" });
+      this.$router.push({ name: "providers" });
     }
   }
 };

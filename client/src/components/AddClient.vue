@@ -4,7 +4,7 @@
     <div class="form">
       <div>
         <label for="name">Name:</label>
-        <input id="name" type="text" name="title" placeholder="Name" v-model="client.name">
+        <input id="name" type="text" placeholder="Name" v-model="client.name">
       </div>
       <div>
         <label for="email">Email:</label>
@@ -37,9 +37,9 @@ export default {
       client: {}
     };
   },
-//   components: {
-//     providerslist
-//   },
+  //   components: {
+  //     providerslist
+  //   },
   methods: {
     addClient() {
       let uri = "http://localhost:4000/clients/add";

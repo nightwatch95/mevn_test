@@ -1,45 +1,55 @@
 <template>
-	<div class="providers">
-    	<h1>Edit Provider</h1>
-		<div class="form">
-			<div>
-				<input type="text" name="title" placeholder="NAME" v-model="provider.name">
-			</div>
-			<div>
-				<button class="app_provider_btn" @click="updateProvider">Update</button>
-			</div>
-		</div>
-	</div>
+  <div class="providers">
+    <h1>Edit Provider</h1>
+    <div class="form">
+      <div>
+        <label for="name">Name:</label>
+        <input id="name" type="text" v-model="provider.name">
+      </div>
+      <div>
+        <button class="app_provider_btn" @click="updateProvider">Update</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'editProvider',
+import ProvidersService from "@/services/ProvidersService";
+export default {
+  name: "editProvider",
 
-    data () {
-      return {
-        provider: {}
-      };
-    },
-    created() {
-      let uri = `http://localhost:4000/providers/edit/${this.$route.params.id}`;
-      this.axios.get(uri).then(response => {
-        this.provider = response.data;
+  data() {
+    return {
+      provider: {}
+    };
+  },
+
+  mounted() {
+    this.getProvider();
+  },
+
+  methods: {
+    async getProvider() {
+      const response = await ProvidersService.getProvider({
+        id: this.$route.params.id
       });
+      this.provider = response.data;
+      console.log(this.provider);
     },
-    methods: {
-      updateProvider() {
-        let uri = `http://localhost:4000/providers/update/${this.$route.params.id}`;
-        this.axios.post(uri, { provider: this.provider } ).then(() => {
-          this.$router.push({name: 'providers'});
-        });
-      }
+    async updateProvider() {
+      await ProvidersService.updateProvider({
+        id: this.$route.params.id,
+        provider: this.provider
+      });
+      this.$router.push({ name: "providers" });
     }
-  };
+  }
+};
 </script>
 
 <style type="text/css">
-.form input, .form textarea {
+.form input,
+.form textarea {
   width: 500px;
   padding: 10px;
   border: 1px solid #e0dede;
@@ -56,8 +66,13 @@
   text-transform: uppercase;
   font-size: 12px;
   font-weight: bold;
-  width: 520px;
+  width: 207px;
   border: none;
   cursor: pointer;
+}
+label {
+  display: inline-block;
+  text-align: left;
+  width: 80px;
 }
 </style>

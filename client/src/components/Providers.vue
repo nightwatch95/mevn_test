@@ -46,14 +46,13 @@ export default {
 	methods: {
 		async getProviders () {
 			const response = await ProvidersService.fetchProviders();
-			this.providers = response.data.providers;
+			this.providers = response.data;
 		},
 		async deleteProvider(id) {
-			// let uri = `http://localhost:4000/providers/delete/${id}`;
-			// this.axios.delete(uri).then(response => {
-			//   this.providers.splice(this.providers.indexOf(id), 1);
-			// });
 			ProvidersService.deleteProvider(id);
+			this.$router.go({
+				path: 'providers'
+			})
 		}
 	}
 };
