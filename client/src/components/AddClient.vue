@@ -16,7 +16,7 @@
       </div>
       <div>
         <label for="providers">Providers:</label>
-        <!-- <providerslist ref="providersList"></providerslist> -->
+        <providerslist ref="providersList"></providerslist>
       </div>
       <div>
         <button class="app_client_btn" @click="addClient">Add</button>
@@ -26,8 +26,8 @@
 </template>
 
 <script>
-// import ClientsService from "@/services/ClientsService";
-// import providerslist from "@/components/Providers";
+import ClientsService from "@/services/ClientsService";
+import providerslist from "@/components/Providers";
 
 export default {
   name: "addClient",
@@ -37,16 +37,15 @@ export default {
       client: {}
     };
   },
-  //   components: {
-  //     providerslist
-  //   },
+  components: {
+    providerslist
+  },
   methods: {
-    addClient() {
-      let uri = "http://localhost:4000/clients/add";
-      this.client.providers = this.$refs.providerslist.selected;
-      this.axios.post(uri, { client: this.client }).then(() => {
-        this.$router.push({ name: "clients" });
+    async addClient() {
+      await ClientsService.addClient({
+        client: this.client
       });
+      this.$router.push({ name: "clients" });
     }
   }
 };
@@ -79,5 +78,9 @@ label {
   display: inline-block;
   text-align: left;
   width: 80px;
+}
+.providers {
+  display: inline-block;
+  text-align: center;
 }
 </style>

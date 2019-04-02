@@ -12,8 +12,7 @@ Vue.use(Router);
 
 export default new Router({
 	mode: 'history',
-	routes: [
-		{
+	routes: [{
 			name: 'addClient',
 			path: '/clients/add',
 			component: AddClient
@@ -41,7 +40,7 @@ export default new Router({
 		{
 			name: 'editProvider',
 			path: '/providers/:id/edit',
-			component : EditProvider
+			component: EditProvider
 		},
 		{
 			path: '/404',

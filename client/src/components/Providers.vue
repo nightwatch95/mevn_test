@@ -1,60 +1,69 @@
 <template>
-	<div class="providers">
-		<div class="table-wrap">
-			<div>
-				<router-link :to="{ name: 'addProvider' }" class="">Add provider</router-link>
-			</div>
-			<table>
-				<tr>
-					<td>Name</td>
-					<td align="center">Actions</td>
-				</tr>
-				<tr v-for="provider in providers" v-bind:key="provider._id">
-					<!-- <b-form-checkbox v-model="data.item.selected"
+  <div class="providers">
+    <div class="table-wrap">
+      <div>
+        <router-link :to="{ name: 'addProvider' }" class>Add provider</router-link>
+      </div>
+      <table>
+        <tr>
+          <td>Name</td>
+          <td align="center">Actions</td>
+        </tr>
+        <tr v-for="provider in providers" v-bind:key="provider._id">
+          <!-- <b-form-checkbox v-model="data.item.selected"
 						:value=true
 						:unchecked-value=false
 						:id="data.item._id">
 					{{ data.item.name }}
-					</b-form-checkbox> -->
-					<td>{{ provider.name }}</td>
-					<td align="center">
-						<router-link :to="{name: 'editProvider', params: { id: provider._id }}">Edit</router-link> |
-						<a href="#" @click.prevent="deleteProvider(provider._id)">Delete</a>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>
+          </b-form-checkbox>-->
+          <td>
+            <input
+              v-model="toggle"
+              true-value="true"
+              false-value="false"
+              value="true"
+              type="checkbox"
+            >
+            <label for="provider._id">{{ provider.name }}</label>
+          </td>
+          <td align="center">
+            <router-link :to="{name: 'editProvider', params: { id: provider._id }}">Edit</router-link>|
+            <a href="#" @click.prevent="deleteProvider(provider._id)">Delete</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
-import ProvidersService from '@/services/ProvidersService'
+import ProvidersService from "@/services/ProvidersService";
 
 export default {
-    name: 'providersList',
+  name: "providersList",
 
-    data() {
-      return {
-         providers: []
-      };
+  data() {
+    return {
+      providers: []
+    };
+  },
+
+  mounted() {
+    this.getProviders();
+  },
+
+  methods: {
+    async getProviders() {
+      const response = await ProvidersService.fetchProviders();
+      this.providers = response.data;
     },
-
-    mounted () {
-		this.getProviders();
-	},
-
-	methods: {
-		async getProviders () {
-			const response = await ProvidersService.fetchProviders();
-			this.providers = response.data;
-		},
-		async deleteProvider(id) {
-			ProvidersService.deleteProvider(id);
-			this.$router.go({
-				path: 'providers'
-			})
-		}
-	}
+    async deleteProvider(id) {
+      ProvidersService.deleteProvider(id);
+      this.$router.go({
+        path: "providers"
+      });
+    }
+  }
 };
 </script>
 
@@ -64,7 +73,8 @@ export default {
   margin: 0 auto;
   text-align: center;
 }
-table th, table tr {
+table th,
+table tr {
   text-align: left;
 }
 table thead {
@@ -91,5 +101,10 @@ a.add_provider_link {
   text-transform: uppercase;
   font-size: 12px;
   font-weight: bold;
+}
+.providers {
+  display: inline-block;
+  text-align: center;
+  width: 500px;
 }
 </style>

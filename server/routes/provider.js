@@ -42,7 +42,6 @@ router.put('/:id', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-	console.log("Lets get provider");
 	Provider.findById(req.params.id, 'name', function (err, post) {
 		if (err) {
 			console.log(err);
