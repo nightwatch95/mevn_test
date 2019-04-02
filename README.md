@@ -10,20 +10,14 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
+# server
+
+## Connect MongoDB
 ```
-npm run build
+mongod
 ```
 
-### Run your tests
+## Compile project
 ```
-npm run test
+nodemon server.js
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
