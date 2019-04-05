@@ -2,24 +2,36 @@
   <div class="clients">
     <h1>Add Client</h1>
     <div class="form">
-      <div>
+      <div class="row">
         <label for="name">Name:</label>
-        <input id="name" type="text" placeholder="Name" v-model="client.name">
+        <input id="name" type="text" class="text-input" placeholder="Name" v-model="client.name">
       </div>
-      <div>
+      <div class="row">
         <label for="email">Email:</label>
-        <input id="email" type="text" placeholder="somebox@gmail.com" v-model="client.email">
+        <input
+          id="email"
+          type="text"
+          class="text-input"
+          placeholder="somebox@gmail.com"
+          v-model="client.email"
+        >
       </div>
-      <div>
+      <div class="row">
         <label for="phone">Phone:</label>
-        <input id="phone" type="text" placeholder="+1 234 456 78 90" v-model="client.phone">
+        <input
+          id="phone"
+          type="text"
+          class="text-input"
+          placeholder="+1 234 456 78 90"
+          v-model="client.phone"
+        >
       </div>
-      <div>
+      <div class="row">
         <label for="providers">Providers:</label>
         <providerslist ref="providersList"></providerslist>
       </div>
       <div>
-        <button class="app_client_btn" @click="addClient">Add</button>
+        <button class="add_btn" @click="addClient">Add Client</button>
       </div>
     </div>
   </div>
@@ -52,35 +64,31 @@ export default {
 </script>
 
 <style type="text/css">
-.form input,
-.form textarea {
+.text-input {
   width: 500px;
   padding: 10px;
   border: 1px solid #e0dede;
   outline: none;
   font-size: 12px;
 }
-.form div {
+.row {
   margin: 20px;
 }
-.app_post_btn {
+.add_btn {
   background: #4d7ef7;
   color: #fff;
   padding: 10px 80px;
   text-transform: uppercase;
   font-size: 12px;
   font-weight: bold;
-  width: 520px;
+  width: 260px;
   border: none;
   cursor: pointer;
 }
 label {
   display: inline-block;
-  text-align: left;
+  text-align: right;
   width: 80px;
-}
-.providers {
-  display: inline-block;
-  text-align: center;
+  margin: 0 20px 0 0;
 }
 </style>

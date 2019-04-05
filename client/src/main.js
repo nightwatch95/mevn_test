@@ -2,12 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
+import BootstrapVue from 'bootstrap-vue'
 //import VueRouter from 'vue-router'
 import router from './router'
 
 // Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
-// Vue.use(BootstrapVue);
+Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false
 
@@ -19,5 +20,7 @@ new Vue({
 	render: h => h(App),
 	router,
 	template: '<App/>',
-	components: { App }
-  })
+	components: {
+		App
+	}
+})
