@@ -53,6 +53,8 @@ export default {
     providerslist
   },
   methods: {
+    setData() {},
+
     async addClient() {
       await ClientsService.addClient({
         client: this.client
@@ -64,6 +66,9 @@ export default {
 </script>
 
 <style type="text/css">
+.form {
+  display: inline-block;
+}
 .text-input {
   width: 500px;
   padding: 10px;

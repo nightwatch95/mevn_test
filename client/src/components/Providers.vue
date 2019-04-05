@@ -47,10 +47,31 @@ export default {
     this.getProviders();
   },
 
+  computed: {
+    selected: {
+      set: function(selected) {
+        selected = selected || [];
+        this.providers = this.providers.map(p => {
+          if (selected.find(sel => sel._id === p._id)) {
+            p.selected = true;
+          } else {
+            p.selected = false;
+          }
+          return p;
+        });
+      },
+      get: function() {
+        return this.providers.filter(p => p.selected === true);
+      }
+    }
+  },
+
   methods: {
     async getProviders() {
       const response = await ProvidersService.fetchProviders();
+      let selectedProviders = this.providers.filter(p => p.selected);
       this.providers = response.data;
+      this.selected = selectedProviders;
     },
     async deleteProvider(id) {
       ProvidersService.deleteProvider(id);
@@ -66,7 +87,7 @@ export default {
 .providers {
   display: inline-block;
   text-align: center;
-  width: 525px;
+  width: 500px;
 }
 
 table label {
