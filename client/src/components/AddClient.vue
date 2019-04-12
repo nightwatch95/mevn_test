@@ -53,9 +53,15 @@ export default {
     providerslist
   },
   methods: {
-    setData() {},
+    setData (client) {
+      this.client.providerslist
+    },
 
-    async addClient() {
+    async submitForm () {
+      this.client.providers = this.$refs.providerslist.selected.map(p => p._id);
+      addClient();
+    },
+    async addClient(client) {  
       await ClientsService.addClient({
         client: this.client
       });
