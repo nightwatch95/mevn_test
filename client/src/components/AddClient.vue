@@ -4,7 +4,7 @@
     <div class="form">
       <div class="row">
         <label for="name">Name:</label>
-        <input id="name" type="text" class="text-input" placeholder="Name" v-model="client.name">
+        <input id="name" type="text" class="text-input" placeholder="Name" v-model="name">
       </div>
       <div class="row">
         <label for="email">Email:</label>
@@ -13,7 +13,7 @@
           type="text"
           class="text-input"
           placeholder="somebox@gmail.com"
-          v-model="client.email"
+          v-model="email"
         >
       </div>
       <div class="row">
@@ -23,7 +23,7 @@
           type="text"
           class="text-input"
           placeholder="+1 234 456 78 90"
-          v-model="client.phone"
+          v-model="phone"
         >
       </div>
       <div class="row">
@@ -31,7 +31,7 @@
         <providerslist ref="providersList"></providerslist>
       </div>
       <div>
-        <button class="add_btn" @click="addClient">Add Client</button>
+        <button class="add_btn" @click="submitForm">Add Client</button>
       </div>
     </div>
   </div>
@@ -46,25 +46,27 @@ export default {
 
   data() {
     return {
-      client: {}
+      name: '',
+      email: '',
+      phone: ''
     };
   },
   components: {
     providerslist
   },
   methods: {
-    setData (client) {
-      this.client.providerslist
-    },
-
     async submitForm () {
-      this.client.providers = this.$refs.providerslist.selected.map(p => p._id);
-      addClient();
+      let client = {
+        name: this.name,
+        email: this.email,
+        phone: this.phone,
+        providers: this.$refs.providersList.selected.map(p => p._id)
+      };
+      console.log(client);
+      addClient(client);
     },
-    async addClient(client) {  
-      await ClientsService.addClient({
-        client: this.client
-      });
+    async addClient(client) {
+      await ClientsService.addClient(client);
       this.$router.push({ name: "clients" });
     }
   }
