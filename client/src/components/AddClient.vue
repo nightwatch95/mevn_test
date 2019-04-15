@@ -62,11 +62,12 @@ export default {
         phone: this.phone,
         providers: this.$refs.providersList.selected.map(p => p._id)
       };
-      console.log(client);
-      addClient(client);
+      await this.addClient(client);
     },
     async addClient(client) {
-      await ClientsService.addClient(client);
+      await ClientsService.addClient({
+        client: client
+      });
       this.$router.push({ name: "clients" });
     }
   }

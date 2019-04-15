@@ -37,6 +37,9 @@
 </template>
 
 <script>
+import ClientsService from "@/services/ClientsService"
+import ProviderService from "@/serveices/ProvidersService"
+
 export default {
   name: "clients",
 
@@ -45,18 +48,13 @@ export default {
       clients: []
     };
   },
-  created() {
-    let uri = "http://localhost:4000/clients";
-    this.axios.get(uri).then(response => {
-      this.clients = response.data;
-    });
+  mounted () {
+
   },
   methods: {
     deleteClient(id) {
-      let uri = `http://localhost:4000/clients/delete/${id}`;
-      this.axios.delete(uri).then(() => {
-        this.clients.splice(this.clients.indexOf(id), 1);
-      });
+      await ClientsService.deleteClient(id);
+
     }
   }
 };
