@@ -30,7 +30,7 @@
         <label for="providers">Providers:</label>
         <providerslist ref="providersList"></providerslist>
       </div>
-      <div>
+      <div class="row">
         <button class="add_btn" @click="submitForm">Add Client</button>
       </div>
     </div>
@@ -51,9 +51,11 @@ export default {
       phone: ''
     };
   },
+
   components: {
     providerslist
   },
+
   methods: {
     async submitForm () {
       let client = {
@@ -64,6 +66,7 @@ export default {
       };
       await this.addClient(client);
     },
+
     async addClient(client) {
       await ClientsService.addClient({
         client: client

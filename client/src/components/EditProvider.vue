@@ -33,8 +33,7 @@ export default {
       const response = await ProvidersService.getProvider({
         id: this.$route.params.id
       });
-      this.provider = response.data;
-      console.log(this.provider);
+      this.provider = response.data;  
     },
     async updateProvider() {
       await ProvidersService.updateProvider({

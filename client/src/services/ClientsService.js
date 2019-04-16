@@ -14,7 +14,7 @@ export default {
 	},
 
 	getClient(params) {
-		return Api().get('client/' + params.id)
+		return Api().get('clients/' + params.id)
 	},
 
 	deleteClient(params) {
