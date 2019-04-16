@@ -18,6 +18,6 @@ export default {
 	},
 
 	deleteClient(params) {
-		return Api().delete('clients/' + params.id)
+		return Api().delete('clients/' + params)
 	}
 }

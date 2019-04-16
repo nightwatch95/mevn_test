@@ -19,7 +19,7 @@
             >{{ provider.name }}</b-form-checkbox>
           </td>
           <td align="center">
-            <router-link :to="{name: 'editProvider', params: { id: provider._id }}">Edit</router-link>|
+            <router-link :to="{name: 'editProvider', params: { id: provider._id }}">Edit</router-link> | 
             <a href="#" @click.prevent="deleteProvider(provider._id)">Delete</a>
           </td>
         </tr>
@@ -73,7 +73,7 @@ export default {
       this.providers = response.data;
       this.selected = selectedProviders;
     },
-    async deleteProvider(id) {
+    deleteProvider(id) {
       ProvidersService.deleteProvider(id);
       this.$router.go({
         path: "providers"

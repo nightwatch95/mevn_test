@@ -6,22 +6,16 @@ let Client = require('../models/client');
 router.post('/add', (req, res) => {
 	let client = new Client(req.body.client);
 	client.save()
-		.then(() => {
-			res.status(200).json({
-				'business': 'Client is added successfully'
-			});
-		})
-		.catch(() => {
-			res.status(400).send("unable to save to database");
-		});
+		.then(() => res.send('Client added'))
+		.catch((err) => console.log(err))
 });
 
 router.get('/', (req, res) => {
 	Client.find((err, clients) => {
 		if (err) {
-			res.json(err);
-		} else {
-
+			console.log(err);
+		}
+		else {
 			res.json(clients);
 		}
 	});
