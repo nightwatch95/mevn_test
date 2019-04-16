@@ -1,5 +1,5 @@
 <template>
-  <div class="providers">
+  <div class="list">
     <div class="table-wrap">
       <div>
         <router-link :to="{ name: 'addProvider' }" class>Add provider</router-link>
@@ -45,6 +45,7 @@ export default {
 
   mounted() {
     this.getProviders();
+    this.$root.$on('providersListChanged', () => this.getProviders());
   },
 
   computed: {
@@ -75,33 +76,8 @@ export default {
     },
     deleteProvider(id) {
       ProvidersService.deleteProvider(id);
-      this.$router.go({
-        path: "providers"
-      });
+      this.$root.$emit('providersListChanged');
     }
   }
 };
 </script>
-
-<style type="text/css">
-.providers {
-  display: inline-block;
-  text-align: center;
-  width: 500px;
-}
-
-table label {
-  display: inline-block;
-  text-align: left;
-}
-table input {
-  display: inline-block;
-  width: auto;
-}
-table.wide {
-  width: 100%;
-}
-.label-left-margin {
-  margin-left: 15px;
-}
-</style>

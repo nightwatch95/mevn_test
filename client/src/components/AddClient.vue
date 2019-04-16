@@ -73,36 +73,3 @@ export default {
   }
 };
 </script>
-
-<style type="text/css">
-.form {
-  display: inline-block;
-}
-.text-input {
-  width: 500px;
-  padding: 10px;
-  border: 1px solid #e0dede;
-  outline: none;
-  font-size: 12px;
-}
-.row {
-  margin: 20px;
-}
-.add_btn {
-  background: #4d7ef7;
-  color: #fff;
-  padding: 10px 80px;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: bold;
-  width: 260px;
-  border: none;
-  cursor: pointer;
-}
-label {
-  display: inline-block;
-  text-align: right;
-  width: 80px;
-  margin: 0 20px 0 0;
-}
-</style>
