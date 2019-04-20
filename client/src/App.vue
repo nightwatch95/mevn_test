@@ -44,6 +44,7 @@ export default {
   width: 260px;
   border: none;
   cursor: pointer;
+  margin: auto;
 }
 label {
   display: inline-block;
