@@ -57,9 +57,7 @@ export default {
   },
 
   mounted () {
-    let client = this.getClient();
-    console.log("client: ", client);
-    this.setData(client);
+    this.getClient();
   },
 
   methods: {
@@ -67,14 +65,13 @@ export default {
       const response = await ClientsService.getClient({
         id: this.$route.params.id
       });
-      return response.data;
-    },
-
-    setData(client) {
-      this.name = client.name;
-      this.email = client.email;
-      this.phone = client.phone;
-      this.$refs.providerslist.selected = client.providerslist;
+      this.name = response.data.name;
+      this.email = response.data.email;
+      this.phone = response.data.phone;
+      console.log("getClient");
+      this.$refs.providersList.selected = response.data.providers;
+      //console.log("selected: ", this.$refs.providersList.selected);
+      // console.log("response: ", response.data.providers);
     },
 
     async updateClient() {

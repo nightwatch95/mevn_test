@@ -51,15 +51,19 @@ export default {
   computed: {
     selected: {
       set: function(selected) {
-        selected = selected || [];
-        this.providers = this.providers.map(p => {
-          if (selected.find(sel => sel._id === p._id)) {
-            p.selected = true;
-          } else {
-            p.selected = false;
-          }
-          return p;
-        });
+        console.log("from Providers: ", selected);
+        //selected = selected || [];
+        if (this.providers) {          
+          this.providers = this.providers.map(p => {
+            if (selected.find(sel => sel._id === p._id)) {
+              p.selected = true;
+            } else {
+              p.selected = false;
+            }
+            return p;
+          });
+          console.log("this.providers", this.providers);
+        }
       },
       get: function() {
         return this.providers.filter(p => p.selected === true);
