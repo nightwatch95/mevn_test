@@ -28,7 +28,10 @@
       </div>
       <div class="row">
         <label for="providers">Providers:</label>
-        <providerslist :selectedProviders="providers"></providerslist>
+        <providerslist
+          @provider-select-toggle="toggleSelectedProvider"
+          @provider-list-changed="updateProviders"
+          :selectedProviders="client.providers" />
       </div>
       <div class="row">
         <button class="add_btn" @click="updateClient">Update</button>
@@ -64,6 +67,20 @@ export default {
   },
 
   methods: {
+    toggleSelectedProvider(providerId) {
+      const isSelected = this.client.providers.includes(providerId);
+      if (isSelected) {
+        this.client.providers = this.client.providers.filter(p => p !== providerId);
+      } else {
+        this.client.providers.push(providerId);
+      }
+    },
+
+    updateProviders(providers) {
+      this.client.providers = this.client.providers
+        .filter(pId => providers.find(p => p._id === pId));
+    },
+
     async getClient () {
       const response = await ClientsService.getClient({
         id: this.$route.params.id
@@ -73,8 +90,6 @@ export default {
       this.client.phone = response.data.phone;
       console.log("getClient");
       this.client.providers = response.data.providers;
-      //console.log("selected: ", this.$refs.providersList.selected);
-      // console.log("response: ", response.data.providers);
     },
 
     async updateClient() {
