@@ -4,7 +4,7 @@
     <div class="form">
       <div class="row">
         <label for="name">Name:</label>
-        <input id="name" type="text" class="text-input" placeholder="Name" v-model="name">
+        <input id="name" type="text" class="text-input" placeholder="Name" v-model="client.name">
       </div>
       <div class="row">
         <label for="email">Email:</label>
@@ -13,7 +13,7 @@
           type="text"
           class="text-input"
           placeholder="somebox@gmail.com"
-          v-model="email"
+          v-model="client.email"
         >
       </div>
       <div class="row">
@@ -23,12 +23,12 @@
           type="text"
           class="text-input"
           placeholder="+1 234 456 78 90"
-          v-model="phone"
+          v-model="client.phone"
         >
       </div>
       <div class="row">
         <label for="providers">Providers:</label>
-        <providerslist ref="providersList"></providerslist>
+        <providerslist :selectedProviders="providers"></providerslist>
       </div>
       <div class="row">
         <button class="add_btn" @click="updateClient">Update</button>
@@ -46,9 +46,12 @@ export default {
   
   data() {
     return {
-      name: '',
-      email: '',
-      phone: ''
+      client: {
+        name: '',
+        email: '',
+        phone: '',
+        providers: []
+      }
     };
   },
 
@@ -65,11 +68,11 @@ export default {
       const response = await ClientsService.getClient({
         id: this.$route.params.id
       });
-      this.name = response.data.name;
-      this.email = response.data.email;
-      this.phone = response.data.phone;
+      this.client.name = response.data.name;
+      this.client.email = response.data.email;
+      this.client.phone = response.data.phone;
       console.log("getClient");
-      this.$refs.providersList.selected = response.data.providers;
+      this.client.providers = response.data.providers;
       //console.log("selected: ", this.$refs.providersList.selected);
       // console.log("response: ", response.data.providers);
     },

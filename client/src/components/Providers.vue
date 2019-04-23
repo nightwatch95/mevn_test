@@ -12,7 +12,7 @@
         <tr v-for="provider in providers" v-bind:key="provider._id">
           <td>
             <b-form-checkbox
-              v-model="provider.selected"
+              :v-model="provider.selected"
               :value="true"
               :unchecked-value="false"
               :id="provider._id + '_name'"
@@ -37,6 +37,10 @@ import ProvidersService from "@/services/ProvidersService";
 export default {
   name: "providersList",
 
+  props: {
+    selectedProviders: Array
+  },
+
   data() {
     return {
       providers: []
@@ -49,34 +53,22 @@ export default {
   },
 
   computed: {
-    selected: {
-      set: function(selected) {
-        console.log("from Providers: ", selected);
-        //selected = selected || [];
-        if (this.providers) {          
-          this.providers = this.providers.map(p => {
-            if (selected.find(sel => sel._id === p._id)) {
-              p.selected = true;
-            } else {
-              p.selected = false;
-            }
-            return p;
-          });
-          console.log("this.providers", this.providers);
-        }
-      },
-      get: function() {
-        return this.providers.filter(p => p.selected === true);
-      }
+    providerOptions() {
+      return this.providers.map(p => {
+        const copy = { ...p };
+        copy.selected = this.selectedProviders.includes(p._id);
+        return copy;
+      });
     }
   },
 
   methods: {
+    isSelected(provider) {
+      return this.selectedProviders.includes(provider._id);
+    },
     async getProviders() {
       const response = await ProvidersService.fetchProviders();
-      let selectedProviders = this.providers.filter(p => p.selected);
       this.providers = response.data;
-      this.selected = selectedProviders;
     },
     deleteProvider(id) {
       ProvidersService.deleteProvider(id);
