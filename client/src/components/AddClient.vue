@@ -4,7 +4,7 @@
     <div class="form">
       <div class="row">
         <label for="name">Name:</label>
-        <input id="name" type="text" class="text-input" placeholder="Name" v-model="name">
+        <input id="name" type="text" class="text-input" placeholder="Name" v-model="client.name">
       </div>
       <div class="row">
         <label for="email">Email:</label>
@@ -13,7 +13,7 @@
           type="text"
           class="text-input"
           placeholder="somebox@gmail.com"
-          v-model="email"
+          v-model="client.email"
         >
       </div>
       <div class="row">
@@ -23,12 +23,14 @@
           type="text"
           class="text-input"
           placeholder="+1 234 456 78 90"
-          v-model="phone"
+          v-model="client.phone"
         >
       </div>
       <div class="row">
         <label for="providers">Providers:</label>
-        <providerslist ref="providersList"></providerslist>
+        <providerslist 
+          @provider-select-toggle="toggleSelectedProvider"
+          :selectedProviders="[]" />
       </div>
       <div class="row">
         <button class="add_btn" @click="submitForm">Add Client</button>
@@ -46,9 +48,12 @@ export default {
 
   data() {
     return {
-      name: '',
-      email: '',
-      phone: ''
+      client: {
+        name: '',
+        email: '',
+        phone: '',
+        providers: []
+      }
     };
   },
 
@@ -57,6 +62,15 @@ export default {
   },
 
   methods: {
+    toggleSelectedProvider(providerId) {
+      const isSelected = this.client.providers.includes(providerId);
+      if (isSelected) {
+        this.client.providers = this.client.providers.filter(p => p !== providerId);
+      } else {
+        this.client.providers.push(providerId);
+      }
+    },
+
     async submitForm () {
       let client = {
         name: this.name,

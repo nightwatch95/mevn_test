@@ -88,7 +88,6 @@ export default {
       this.client.name = response.data.name;
       this.client.email = response.data.email;
       this.client.phone = response.data.phone;
-      console.log("getClient");
       this.client.providers = response.data.providers;
       //console.log("selected: ", this.$refs.providersList.selected);
       // console.log("response: ", response.data.providers);

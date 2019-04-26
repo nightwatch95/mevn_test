@@ -12,11 +12,16 @@
         <tr v-for="provider in providerOptions" v-bind:key="provider._id">
           <td>
             {{ provider.selected }}
-            <b-form-checkbox
+            <!-- <b-form-checkbox
               :checked="provider.selected"
               @change="toggleSelectedProvider(provider)"
               :id="provider._id"
-            >{{ provider.name }}</b-form-checkbox>
+            >{{ provider.name }}</b-form-checkbox> -->
+            <input  type="checkbox"
+                    :value="provider.selected"
+                    :id="provider._id"
+                    @change="toggleSelectedProvider(provider)">
+            <label>{{ provider.name }}</label>
           </td>
           <td align="center">
             <router-link :to="{name: 'editProvider', params: { id: provider._id }}">Edit</router-link> | 
@@ -56,6 +61,8 @@ export default {
     providerOptions() {
       return this.providers.map(p => {
         const copy = { ...p };
+        this.selectedProviders = this.selectedProviders || [];
+        console.log("selected providers", this.selectedProviders);
         copy.selected = this.selectedProviders.includes(p._id);
         return copy;
       });
