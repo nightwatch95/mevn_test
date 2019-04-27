@@ -1,9 +1,6 @@
 <template>
   <div class="list">
     <div class="table-wrap">
-      <div>
-        <router-link :to="{ name: 'addProvider' }" class>Add provider</router-link>
-      </div>
       <table class="wide">
         <tr>
           <td>Name</td>
@@ -12,13 +9,8 @@
         <tr v-for="provider in providerOptions" v-bind:key="provider._id">
           <td>
             {{ provider.selected }}
-            <!-- <b-form-checkbox
-              :checked="provider.selected"
-              @change="toggleSelectedProvider(provider)"
-              :id="provider._id"
-            >{{ provider.name }}</b-form-checkbox> -->
             <input  type="checkbox"
-                    :value="provider.selected"
+                    :checked="provider.selected"
                     :id="provider._id"
                     @change="toggleSelectedProvider(provider)">
             <label>{{ provider.name }}</label>
@@ -62,7 +54,6 @@ export default {
       return this.providers.map(p => {
         const copy = { ...p };
         this.selectedProviders = this.selectedProviders || [];
-        console.log("selected providers", this.selectedProviders);
         copy.selected = this.selectedProviders.includes(p._id);
         return copy;
       });

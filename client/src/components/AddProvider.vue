@@ -1,19 +1,8 @@
 <template>
   <div class="providers">
-    <h1>Add Provider</h1>
     <div class="form">
       <div class="row">
-        <label for="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="title"
-          class="text-input"
-          placeholder="NAME"
-          v-model="provider.name"
-        >
-      </div>
-      <div>
+        <input type="text" class="text-input" v-model="provider.name"/>
         <button class="add_btn" @click="addProvider">Add</button>
       </div>
     </div>
@@ -34,7 +23,8 @@ export default {
       await ProvidersService.addProvider({
         provider: this.provider
       });
-      this.$router.push({ name: "providers" });
+      this.$emit('providers-list-changed', this.provider);
+      //this.$router.push({ name: "providers" });
     }
   }
 };

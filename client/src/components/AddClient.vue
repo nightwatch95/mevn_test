@@ -3,31 +3,22 @@
     <h1>Add Client</h1>
     <div class="form">
       <div class="row">
-        <label for="name">Name:</label>
-        <input id="name" type="text" class="text-input" placeholder="Name" v-model="client.name">
+        <label>Name:</label>
+        <input type="text" class="text-input" v-model="client.name"/>
       </div>
       <div class="row">
-        <label for="email">Email:</label>
-        <input
-          id="email"
-          type="text"
-          class="text-input"
-          placeholder="somebox@gmail.com"
-          v-model="client.email"
-        >
+        <label>Email:</label>
+        <input type="text" class="text-input" v-model="client.email"/>
       </div>
       <div class="row">
-        <label for="phone">Phone:</label>
-        <input
-          id="phone"
-          type="text"
-          class="text-input"
-          placeholder="+1 234 456 78 90"
-          v-model="client.phone"
-        >
+        <label>Phone:</label>
+        <input type="text" class="text-input" v-model="client.phone"/>
       </div>
       <div class="row">
-        <label for="providers">Providers:</label>
+        <label>Providers:</label>
+        <addProvider></addProvider>
+      </div>
+      <div class="row">
         <providerslist 
           @provider-select-toggle="toggleSelectedProvider"
           :selectedProviders="[]" />
@@ -42,6 +33,7 @@
 <script>
 import ClientsService from "@/services/ClientsService";
 import providerslist from "@/components/Providers";
+import addProvider from "@/components/AddProvider"
 
 export default {
   name: "addClient",
@@ -58,7 +50,8 @@ export default {
   },
 
   components: {
-    providerslist
+    providerslist,
+    addProvider
   },
 
   methods: {
