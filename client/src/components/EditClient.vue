@@ -27,10 +27,13 @@
         >
       </div>
       <div class="row">
-        <label for="providers">Providers:</label>
-        <providerslist
+        <label>Providers:</label>
+        <addProvider></addProvider>
+      </div>
+      <div class="row">
+        <providersList
           @provider-select-toggle="toggleSelectedProvider"
-          @provider-list-changed="updateProviders"
+          @providers-list-changed="updateProviders"
           :selectedProviders="client.providers" />
       </div>
       <div class="row">
@@ -42,8 +45,8 @@
 
 <script>
 import ClientsService from "@/services/ClientsService";
-import providerslist from "@/components/Providers";
-
+import ProvidersList from "@/components/Providers";
+import AddProvider from "@/components/AddProvider"
 export default {
   name: "editClient",
   
@@ -59,7 +62,8 @@ export default {
   },
 
   components: {
-    providerslist
+    ProvidersList,
+    AddProvider
   },
 
   mounted () {
@@ -88,7 +92,6 @@ export default {
       this.client.name = response.data.name;
       this.client.email = response.data.email;
       this.client.phone = response.data.phone;
-      console.log("getClient");
       this.client.providers = response.data.providers;
     },
 
