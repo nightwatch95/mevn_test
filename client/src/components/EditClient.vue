@@ -3,28 +3,16 @@
     <h1>Edit Client</h1>
     <div class="form">
       <div class="row">
-        <label for="name">Name:</label>
-        <input id="name" type="text" class="text-input" placeholder="Name" v-model="client.name">
+        <label>Name:</label>
+        <input type="text" class="text-input" v-model="client.name">
       </div>
       <div class="row">
-        <label for="email">Email:</label>
-        <input
-          id="email"
-          type="text"
-          class="text-input"
-          placeholder="somebox@gmail.com"
-          v-model="client.email"
-        >
+        <label>Email:</label>
+        <input type="text" class="text-input" v-model="client.email">
       </div>
       <div class="row">
-        <label for="phone">Phone:</label>
-        <input
-          id="phone"
-          type="text"
-          class="text-input"
-          placeholder="+1 234 456 78 90"
-          v-model="client.phone"
-        >
+        <label>Phone:</label>
+        <input type="text" class="text-input" v-model="client.phone">
       </div>
       <div class="row">
         <label>Providers:</label>
@@ -33,7 +21,7 @@
       <div class="row">
         <providersList
           @provider-select-toggle="toggleSelectedProvider"
-          @providers-list-changed="updateProviders"
+          @providers-list-changed="updateClientProviders"
           :selectedProviders="client.providers" />
       </div>
       <div class="row">
@@ -47,6 +35,7 @@
 import ClientsService from "@/services/ClientsService";
 import ProvidersList from "@/components/Providers";
 import AddProvider from "@/components/AddProvider"
+
 export default {
   name: "editClient",
   
@@ -80,7 +69,7 @@ export default {
       }
     },
 
-    updateProviders(providers) {
+    updateClientProviders(providers) {
       this.client.providers = this.client.providers
         .filter(pId => providers.find(p => p._id === pId));
     },
@@ -100,7 +89,6 @@ export default {
         id: this.$route.params.id,
         client: this.client
       });
-      this.$route.push({ name: "/" });
     }
   }
 };

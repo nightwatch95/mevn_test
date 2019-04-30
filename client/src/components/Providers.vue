@@ -29,8 +29,9 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import ProvidersService from "@/services/ProvidersService";
+
 export default {
-  name: "providersList",
+  name: "providers",
   props: {
     selectedProviders: Array
   },
@@ -41,7 +42,7 @@ export default {
   },
   mounted() {
     this.getProviders();
-    this.$root.$on('providersListChanged', () => this.getProviders());
+    this.$root.$on('providers-list-changed', () => this.getProviders());
   },
   computed: {
     providerOptions() {
@@ -64,7 +65,7 @@ export default {
     deleteProvider(id) {
       ProvidersService.deleteProvider(id);
       this.providers = this.providers.filter(p => p._id !== id);
-      this.$emit('providers-list-changed', this.providers);
+      this.$emit('providers-list-changed');
     }
   }
 };

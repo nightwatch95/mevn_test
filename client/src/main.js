@@ -3,16 +3,12 @@ import App from './App.vue'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
 import BootstrapVue from 'bootstrap-vue'
-//import VueRouter from 'vue-router'
 import router from './router'
 
-// Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false
-
-//new Vue(Vue.util.extend({ router }, App)).$mount('#app');
 
 /* eslint-disable no-new */
 new Vue({
