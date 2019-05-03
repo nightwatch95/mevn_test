@@ -3,32 +3,26 @@
     <h1>Add Client</h1>
     <div class="form">
       <div class="row">
-        <label for="name">Name:</label>
-        <input id="name" type="text" class="text-input" placeholder="Name" v-model="name">
+        <label>Name:</label>
+        <input type="text" class="text-input" v-model="client.name">
       </div>
       <div class="row">
-        <label for="email">Email:</label>
-        <input
-          id="email"
-          type="text"
-          class="text-input"
-          placeholder="somebox@gmail.com"
-          v-model="email"
-        >
+        <label>Email:</label>
+        <input type="text" class="text-input" v-model="client.email">
       </div>
       <div class="row">
-        <label for="phone">Phone:</label>
-        <input
-          id="phone"
-          type="text"
-          class="text-input"
-          placeholder="+1 234 456 78 90"
-          v-model="phone"
-        >
+        <label>Phone:</label>
+        <input type="text" class="text-input" v-model="client.phone">
       </div>
       <div class="row">
-        <label for="providers">Providers:</label>
-        <providerslist ref="providersList"></providerslist>
+        <label>Providers:</label>
+        <addProvider></addProvider>
+      </div>
+      <div class="row">
+        <providersList 
+          @provider-select-toggle="toggleSelectedProvider"
+          @providers-list-changed="updateClientProviders"
+          :selectedProviders="client.providers" />
       </div>
       <div class="row">
         <button class="add_btn" @click="submitForm">Add Client</button>
@@ -39,32 +33,45 @@
 
 <script>
 import ClientsService from "@/services/ClientsService";
-import providerslist from "@/components/Providers";
+import ProvidersList from "@/components/ProvidersList";
+import AddProvider from "@/components/AddProvider"
 
 export default {
   name: "addClient",
 
   data() {
     return {
-      name: '',
-      email: '',
-      phone: ''
+      client: {
+        name: '',
+        email: '',
+        phone: '',
+        providers: []
+      }
     };
   },
 
   components: {
-    providerslist
+    ProvidersList,
+    AddProvider
   },
 
   methods: {
+    toggleSelectedProvider(providerId) {
+      const isSelected = this.client.providers.includes(providerId);
+      if (isSelected) {
+        this.client.providers = this.client.providers.filter(p => p !== providerId);
+      } else {
+        this.client.providers.push(providerId);
+      }
+    },
+
+    updateClientProviders(providers) {
+      this.client.providers = this.client.providers
+        .filter(pId => providers.find(p => p._id === pId));
+    },
+
     async submitForm () {
-      let client = {
-        name: this.name,
-        email: this.email,
-        phone: this.phone,
-        providers: this.$refs.providersList.selected.map(p => p._id)
-      };
-      await this.addClient(client);
+      await this.addClient(this.client);
     },
 
     async addClient(client) {

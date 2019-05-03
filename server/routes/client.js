@@ -16,9 +16,16 @@ router.get('/', (req, res) => {
 			console.log(err);
 		}
 		else {
-			res.json(clients);
+			res.send(clients);
 		}
-	});
+	})
+	// Client.find()
+	// .sort('name')
+	// .populate('providers')
+	// .exec((err, clients) => {
+	// 	if (err) return res.status(404).send(err);
+    //     res.send(clients);
+	// });
 });
 
 router.get('/:id', (req, res) => {

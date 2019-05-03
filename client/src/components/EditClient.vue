@@ -33,7 +33,7 @@
 
 <script>
 import ClientsService from "@/services/ClientsService";
-import ProvidersList from "@/components/Providers";
+import ProvidersList from "@/components/ProvidersList";
 import AddProvider from "@/components/AddProvider"
 
 export default {

@@ -8,7 +8,6 @@
         </tr>
         <tr v-for="provider in providerOptions" v-bind:key="provider._id">
           <td>
-            {{ provider.selected }}
             <input  type="checkbox"
                     :checked="provider.selected"
                     :id="provider._id"
@@ -31,7 +30,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import ProvidersService from "@/services/ProvidersService";
 
 export default {
-  name: "providers",
+  name: "providersList",
   props: {
     selectedProviders: Array
   },

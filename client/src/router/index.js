@@ -5,8 +5,7 @@ import Clients from '@/components/Clients.vue'
 import EditClient from '@/components/EditClient.vue'
 import AddProvider from '@/components/AddProvider.vue'
 import EditProvider from '@/components/EditProvider.vue'
-import Providers from '@/components/Providers.vue'
-import NotFound from '@/components/NotFound.vue'
+import ProvidersList from '@/components/ProvidersList.vue'
 
 Vue.use(Router);
 
@@ -33,18 +32,14 @@ export default new Router({
 			component: AddProvider
 		},
 		{
-			name: 'providers',
+			name: 'providersList',
 			path: '/providers',
-			component: Providers
+			component: ProvidersList
 		},
 		{
 			name: 'editProvider',
 			path: '/providers/:id/edit',
 			component: EditProvider
-		},
-		{
-			path: '/404',
-			component: NotFound
 		}
 	]
 })

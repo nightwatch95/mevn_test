@@ -18,8 +18,10 @@
             <td>{{ client.name }}</td>
             <td>{{ client.email }}</td>
             <td>{{ client.phone }}</td>
-            <td>
-              <span v-for="provider in client.providers" v-bind:key="provider.id">{{ provider.name }}</span>
+            <td>{{ client.providers.map(e => {
+                  return e.name;
+                }).join(', ')
+              }}
             </td>
             <td align="center">
               <router-link :to="{name: 'editClient', params: { id: client._id }}">Edit</router-link> | 

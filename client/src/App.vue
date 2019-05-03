@@ -92,7 +92,7 @@ a.add_client_link {
   display: inline-block;
   text-align: center;
   width: 500px;
-  margin-top: 7px;
+  margin: 7px 0px 0px 100px;
 }
 
 table label {
