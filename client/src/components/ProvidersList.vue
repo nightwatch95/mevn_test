@@ -28,6 +28,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import ProvidersService from "@/services/ProvidersService";
+import EventBus from "../EventBus.js";
 
 export default {
   name: "providersList",
@@ -41,7 +42,9 @@ export default {
   },
   mounted() {
     this.getProviders();
-    this.$root.$on('providers-list-changed', () => this.getProviders());
+    EventBus.$on('providers-list-changed', () => {
+      this.getProviders();
+    });
   },
   computed: {
     providerOptions() {
@@ -54,9 +57,6 @@ export default {
     }
   },
   methods: {
-    toggleSelectedProvider(provider) {
-      this.$emit('provider-select-toggle', provider._id);
-    },
     async getProviders() {
       const response = await ProvidersService.fetchProviders();
       this.providers = response.data;
@@ -64,7 +64,10 @@ export default {
     deleteProvider(id) {
       ProvidersService.deleteProvider(id);
       this.providers = this.providers.filter(p => p._id !== id);
-      this.$emit('providers-list-changed');
+      EventBus.$emit('providers-list-changed');
+    },
+    toggleSelectedProvider(provider) {
+      EventBus.$emit('client-providers-changed', provider._id);
     }
   }
 };

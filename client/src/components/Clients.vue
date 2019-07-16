@@ -49,7 +49,8 @@ export default {
 
   data() {
     return {
-      clients: []
+      clients: [],
+      providers: []
     };
   },
   mounted () {

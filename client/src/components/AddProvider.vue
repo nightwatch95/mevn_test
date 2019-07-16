@@ -11,6 +11,8 @@
 
 <script>
 import ProvidersService from "@/services/ProvidersService";
+import EventBus from "../EventBus.js";
+
 export default {
   name: "addProvider",
   data() {
@@ -23,7 +25,7 @@ export default {
       await ProvidersService.addProvider({
         provider: this.provider
       });
-      this.$emit('providers-list-changed');
+      EventBus.$emit('providers-list-changed');
     }
   }
 };
