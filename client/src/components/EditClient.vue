@@ -20,6 +20,7 @@
       </div>
       <div class="row">
         <providersList
+          @provider-select-toggle="toggleSelectedProvider"
           @providers-list-changed="updateClientProviders"
           :selectedProviders="client.providers" />
       </div>
@@ -33,8 +34,7 @@
 <script>
 import ClientsService from "@/services/ClientsService";
 import ProvidersList from "@/components/ProvidersList";
-import AddProvider from "@/components/AddProvider";
-import EventBus from "../EventBus.js";
+import AddProvider from "@/components/AddProvider"
 
 export default {
   name: "editClient",
@@ -57,13 +57,6 @@ export default {
 
   mounted () {
     this.getClient();
-    EventBus.$on('client-providers-changed', providerId => {
-      this.toggleSelectedProvider(providerId);
-    });
-  },
-
-  created () {
-
   },
 
   methods: {

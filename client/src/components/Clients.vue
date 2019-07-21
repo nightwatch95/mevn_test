@@ -1,4 +1,24 @@
 <template>
+  <!-- <div class="container">
+    <div class="">
+      <h3 class="">Clients</h3>
+      <button type="button" class="btn btn-primary">New Client</button>
+    </div>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Providers</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div> -->
   <div class="list">
     <div class="table-wrap">
       <h1>Clients</h1>
