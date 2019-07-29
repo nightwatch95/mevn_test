@@ -1,12 +1,10 @@
 <template>
-  <div class="providers">
-    <div class="form">
-      <div class="row">
-        <input type="text" class="text-input" v-model="provider.name">
-        <button class="add_btn" @click="addProvider">Add</button>
-      </div>
+  <form class="form-inline">
+    <div class="form-group">
+      <input type="text" class="form-control" v-model="provider.name">
     </div>
-  </div>
+    <button class="btn btn-primary mx-sm-3" @click="addProvider">Add</button>
+  </form>
 </template>
 
 <script>

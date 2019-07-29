@@ -1,6 +1,6 @@
 <template>
   <div class="clients">
-    <h1>Add Client</h1>
+    <!-- <h1>Add Client</h1>
     <div class="form">
       <div class="row">
         <label>Name:</label>
@@ -27,7 +27,7 @@
       <div class="row">
         <button class="add_btn" @click="submitForm">Add Client</button>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

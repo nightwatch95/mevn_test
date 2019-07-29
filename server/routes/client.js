@@ -7,6 +7,7 @@ router.post('/add', (req, res) => {
 	let clientModel = new Client(req.body.client);
 	clientModel.save((err, client) => {
 		Client.populate(client, 'providers', (err, client) => {
+			if (err) return res.status(404).send(err);
 			res.send(client);
 		})
 	})
@@ -24,12 +25,12 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-	Client.findById(req.params.id, (err, client) => {
-		if (err) {
-			console.log(err);
-		}
-		res.send(client);
-	})
+	Client.findById(req.params.id)
+		.populate('providers')
+		.exec((err, client) => {
+			if (err) return res.status(404).send(err);
+			res.send(client);
+		})
 });
 
 router.put('/:id', (req, res) => {
@@ -49,6 +50,18 @@ router.put('/:id', (req, res) => {
 				});
 		}
 	});
+
+	// let newClient = new Client(req.body.client);
+
+	// console.log(newClient);
+
+	// Client.findByIdAndUpdate(req.params.id, newClient, {new: true}, (err, client) => {
+	// 	if (err) return res.status(404).send(err);
+    //     Client.populate(client, 'providers', (err, client) => {
+	// 		console.log('in populater');
+    //         res.send(client);
+    //     });
+	// });
 });
 
 router.delete('/:id', (req, res) => {
