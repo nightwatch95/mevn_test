@@ -22,8 +22,9 @@ export default {
     async addProvider() {
       await ProvidersService.addProvider({
         provider: this.provider
-      });
+      });  
       EventBus.$emit('providers-list-changed');
+      this.provider = {};
     }
   }
 };

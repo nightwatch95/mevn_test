@@ -22,7 +22,7 @@
             <a href="#" class="btn btn-link" @click="providerForChange = provider">Edit</a>
           </div>
           <div class="ml-auto p-2">
-            <a href="#" class="btn btn-light" @click.prevent="deleteProvider(provider._id)">Delete</a>
+            <a href="#" class="btn btn-light" @click="deleteProvider(provider._id)">Delete</a>
           </div>
         </div>
       </div>
@@ -70,14 +70,12 @@ export default {
   methods: {
     async getProviders() {
       const response = await ProvidersService.fetchProviders();
-      console.log(response.data);
-      console.log("providers fetched");
       this.providers = response.data;
     },
     deleteProvider(id) {
       ProvidersService.deleteProvider(id);
-      this.providers = this.providers.filter(p => p._id !== id);
-      EventBus.$emit("providers-list-changed");
+      //this.providers = this.providers.filter(p => p._id !== id);
+      this.getProviders();
     },
     toggleSelectedProvider(provider) {
       EventBus.$emit("client-providers-changed", provider._id);
