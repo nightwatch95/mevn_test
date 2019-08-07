@@ -2,13 +2,13 @@
   <div>
     <div class="form-check">
       <div v-for="provider in providers" v-bind:key="provider._id" class="form-row">
-        <!-- <div v-if="providerForChange._id === provider._id">
+        <div v-if="providerForChange._id === provider._id">
           <form class="form-inline">
-            <input type="text" v-model="providerForChange.name">
+            <input type="text" class="form-control" v-model="providerForChange.name">
             <button class="btn btn-primary mx-sm-3" @click="updateProvider()">Save</button>
           </form>
-        </div> -->
-        <div class="d-flex">
+        </div>
+        <div class="d-flex" v-else>
           <div class="p-2">
             <input class="form-check-input input-margin" 
                   type="checkbox"
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       providers: [],
-      //providerForChange: {}
+      providerForChange: {}
     };
   },
   created: function() {
@@ -82,8 +82,8 @@ export default {
     },
     async updateProvider() {
       await ProvidersService.updateProvider({
-        id: this.$route.params.id,
-        provider: this.provider
+        id: this.providerForChange._id,
+        provider: this.providerForChange
       });
       this.providerForChange = {};
       EventBus.$emit("providers-list-changed");

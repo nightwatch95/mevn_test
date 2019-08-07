@@ -17,11 +17,7 @@
       <addProvider></addProvider>
     </div>
     <div class="form-group">
-      <providersList
-        @provider-select-toggle="toggleSelectedProvider"
-        @providers-list-changed="updateClientProviders"
-        :selectedProviders="client.providers"
-      />
+      <providersList :selectedProviders="client.providers"></providersList>
     </div>
   </form>
   <!-- <div class="clients">
@@ -70,6 +66,10 @@ export default {
     ProvidersList
   },
 
+  props: {
+    id: String
+  },
+
   data() {
     return {
       client: {
@@ -82,27 +82,27 @@ export default {
   },
 
   mounted() {
-    this.client._id = id;
+    this.client._id = this.id;
     this.getClient();
   },
 
   methods: {
-    toggleSelectedProvider(providerId) {
-      const isSelected = this.client.providers.includes(providerId);
-      if (isSelected) {
-        this.client.providers = this.client.providers.filter(
-          p => p !== providerId
-        );
-      } else {
-        this.client.providers.push(providerId);
-      }
-    },
+    // toggleSelectedProvider(providerId) {
+    //   const isSelected = this.client.providers.includes(providerId);
+    //   if (isSelected) {
+    //     this.client.providers = this.client.providers.filter(
+    //       p => p !== providerId
+    //     );
+    //   } else {
+    //     this.client.providers.push(providerId);
+    //   }
+    // },
 
-    updateClientProviders(providers) {
-      this.client.providers = this.client.providers.filter(pId =>
-        providers.find(p => p._id === pId)
-      );
-    },
+    // updateClientProviders(providers) {
+    //   this.client.providers = this.client.providers.filter(pId =>
+    //     providers.find(p => p._id === pId)
+    //   );
+    // },
 
     async getClient() {
       const response = await ClientsService.getClient({
