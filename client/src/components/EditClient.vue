@@ -20,36 +20,6 @@
       <providersList :selectedProviders="client.providers"></providersList>
     </div>
   </form>
-  <!-- <div class="clients">
-    <h1>Edit Client</h1>
-    <div class="form">
-      <div class="row">
-        <label>Name:</label>
-        <input type="text" class="text-input" v-model="client.name">
-      </div>
-      <div class="row">
-        <label>Email:</label>
-        <input type="text" class="text-input" v-model="client.email">
-      </div>
-      <div class="row">
-        <label>Phone:</label>
-        <input type="text" class="text-input" v-model="client.phone">
-      </div>
-      <div class="row">
-        <label>Providers:</label>
-        <addProvider></addProvider>
-      </div>
-      <div class="row">
-        <providersList
-          @provider-select-toggle="toggleSelectedProvider"
-          @providers-list-changed="updateClientProviders"
-          :selectedProviders="client.providers" />
-      </div>
-      <div class="row">
-        <button class="add_btn" @click="updateClient">Update</button>
-      </div>
-    </div>
-  </div>-->
 </template>
 
 <script>
@@ -84,6 +54,9 @@ export default {
   mounted() {
     this.client._id = this.id;
     this.getClient();
+    EventBus.$on('update-client', () => {
+      this.updateClient()
+    });
   },
 
   methods: {
@@ -106,17 +79,18 @@ export default {
 
     async getClient() {
       const response = await ClientsService.getClient({
-        id: this.$route.params.id
+        id: this.client._id
       });
       this.client.name = response.data.name;
       this.client.email = response.data.email;
       this.client.phone = response.data.phone;
       this.client.providers = response.data.providers;
+      console.log(this.client.providers)
     },
 
     async updateClient() {
       await ClientsService.updateClient({
-        id: this.$route.params.id,
+        id: this.client._id,
         client: this.client
       });
     }

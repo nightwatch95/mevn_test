@@ -1,40 +1,32 @@
 <template>
-  <div class="clients">
-    <!-- <h1>Add Client</h1>
-    <div class="form">
-      <div class="row">
-        <label>Name:</label>
-        <input type="text" class="text-input" v-model="client.name">
-      </div>
-      <div class="row">
-        <label>Email:</label>
-        <input type="text" class="text-input" v-model="client.email">
-      </div>
-      <div class="row">
-        <label>Phone:</label>
-        <input type="text" class="text-input" v-model="client.phone">
-      </div>
-      <div class="row">
-        <label>Providers:</label>
-        <addProvider></addProvider>
-      </div>
-      <div class="row">
-        <providersList 
-          @provider-select-toggle="toggleSelectedProvider"
-          @providers-list-changed="updateClientProviders"
-          :selectedProviders="client.providers" />
-      </div>
-      <div class="row">
-        <button class="add_btn" @click="submitForm">Add Client</button>
-      </div>
-    </div> -->
-  </div>
+  <form>
+    <div class="form-group">
+      <label>Name:</label>
+      <input type="text" class="form-control" v-model="client.name" />
+    </div>
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="email" class="form-control" v-model="client.email" />
+    </div>
+    <div class="form-group">
+      <label>Phone:</label>
+      <input type="text" class="form-control" v-model="client.phone" />
+    </div>
+    <div class="form-group">
+      <label>Providers:</label>
+      <addProvider></addProvider>
+    </div>
+    <div class="form-group">
+      <providersList :selectedProviders="client.providers"></providersList>
+    </div>
+  </form>
 </template>
 
 <script>
 import ClientsService from "@/services/ClientsService";
 import ProvidersList from "@/components/ProvidersList";
 import AddProvider from "@/components/AddProvider"
+import EventBus from "../EventBus.js";
 
 export default {
   name: "addClient",
@@ -55,6 +47,12 @@ export default {
     AddProvider
   },
 
+  mounted() {
+    EventBus.$on('add-client', () => {
+      this.addClient(this.client);
+    });
+  },
+
   methods: {
     toggleSelectedProvider(providerId) {
       const isSelected = this.client.providers.includes(providerId);
@@ -70,15 +68,11 @@ export default {
         .filter(pId => providers.find(p => p._id === pId));
     },
 
-    async submitForm () {
-      await this.addClient(this.client);
-    },
-
     async addClient(client) {
       await ClientsService.addClient({
         client: client
       });
-      this.$router.push({ name: "clients" });
+      Eventbus.$emit('close-modal');
     }
   }
 };

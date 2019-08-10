@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row row-margin">
       <h3 class="col">Clients</h3>
-      <button type="button" class="btn btn-primary col-md-auto">New Client</button>
+      <button @click.prevent="showModal()" type="button" class="btn btn-primary col-md-auto">New Client</button>
     </div>
     <div class="row row-margin">
         <table class="table">
@@ -50,24 +50,25 @@ export default {
       providers: []
     };
   },
-  mounted () {
+  created() {
     this.getClients();
-    this.$root.$on('clientsListChanged', () => this.getClients());
+  },
+  mounted() {
+    EventBus.$on('clients-list-changed', () => this.getClients());
   },
   methods: {
     showModal(id) {
-      console.log("show-modal emitted");
       EventBus.$emit('show-modal', id);
     },
 
-    async getClients () {
+    async getClients() {
        let response = await ClientsService.fetchClients();
        this.clients = response.data;
     },
 
     deleteClient(id) {
       ClientsService.deleteClient(id);
-      this.$root.$emit('clientsListChanged');
+      EventBus.$emit('clients-list-changed');
     }
   }
 };
