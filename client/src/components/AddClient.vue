@@ -17,7 +17,7 @@
       <addProvider></addProvider>
     </div>
     <div class="form-group">
-      <providersList :selectedProviders="client.providers"></providersList>
+      <providersList></providersList>
     </div>
   </form>
 </template>
@@ -51,6 +51,9 @@ export default {
     EventBus.$on('add-client', () => {
       this.addClient(this.client);
     });
+    EventBus.$on("client-providers-changed", (providerId) => {
+      this.toggleSelectedProvider(providerId);
+    });
   },
 
   methods: {
@@ -72,7 +75,7 @@ export default {
       await ClientsService.addClient({
         client: client
       });
-      Eventbus.$emit('close-modal');
+      EventBus.$emit('close-modal');
     }
   }
 };

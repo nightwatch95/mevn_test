@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="form-check">
-      <div v-for="provider in providers" v-bind:key="provider._id" class="form-row">
+      <div v-for="provider in providerOptions" v-bind:key="provider._id" class="form-row">
         <div v-if="providerForChange._id === provider._id">
           <form class="form-inline">
             <input type="text" class="form-control" v-model="providerForChange.name">
@@ -12,10 +12,9 @@
           <div class="p-2">
             <input class="form-check-input input-margin" 
                   type="checkbox"
-                  value
                   :checked="provider.selected"
                   :id="provider._id"
-                  @change="toggleSelectedProvider(provider)"/>
+                  @change="toggleProvider(provider)"/>
             <label class="form-check-label label-margin">{{ provider.name }}</label>
           </div>
           <div class="ml-auto p-2">
@@ -51,21 +50,21 @@ export default {
     this.getProviders();
   },
   mounted() {
-    EventBus.$on("providers-list-changed", () => {
+    EventBus.$on('providers-list-changed', () => {
       this.getProviders();
     });
   },
 
-  // computed: {
-  //   providerOptions() {
-  //     return this.providers.map(p => {
-  //       const copy = { ...p };
-  //       this.selectedProviders = this.selectedProviders || [];
-  //       copy.selected = this.selectedProviders.includes(p._id);
-  //       return copy;
-  //     });
-  //   }
-  // },
+  computed: {
+    providerOptions() {
+      return this.providers.map(p => {
+        const copy = { ...p };
+        this.selectedProviders = this.selectedProviders || [];
+        copy.selected = this.selectedProviders.includes(p._id);
+        return copy;
+      });
+    }
+  },
 
   methods: {
     async getProviders() {
@@ -74,11 +73,12 @@ export default {
     },
     deleteProvider(id) {
       ProvidersService.deleteProvider(id);
-      //this.providers = this.providers.filter(p => p._id !== id);
-      this.getProviders();
+      this.providers = this.providers.filter(p => p._id !== id);
+      EventBus.$emit('providers-list-changed');
+      //this.getProviders();
     },
-    toggleSelectedProvider(provider) {
-      EventBus.$emit("client-providers-changed", provider._id);
+    toggleProvider(provider) {
+      EventBus.$emit('client-providers-changed', provider._id);
     },
     async updateProvider() {
       await ProvidersService.updateProvider({
@@ -86,7 +86,7 @@ export default {
         provider: this.providerForChange
       });
       this.providerForChange = {};
-      EventBus.$emit("providers-list-changed");
+      EventBus.$emit('providers-list-changed');
     }
   }
 };

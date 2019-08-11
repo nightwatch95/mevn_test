@@ -6,12 +6,11 @@ let Client = require('../models/client');
 router.post('/add', (req, res) => {
 	let clientModel = new Client(req.body.client);
 	clientModel.save((err, client) => {
+		if (err) return res.status(404).send(err);
 		Client.populate(client, 'providers', (err, client) => {
-			if (err) return res.status(404).send(err);
 			res.send(client);
 		})
-	})
-	.catch((err) => console.log(err))
+	});
 });
 
 router.get('/', (req, res) => {

@@ -57,25 +57,31 @@ export default {
     EventBus.$on('update-client', () => {
       this.updateClient()
     });
+    EventBus.$on("client-providers-changed", (providerId) => {
+      this.toggleSelectedProvider(providerId);
+    });
+    EventBus.$on("providers-list-changed", (providers) => {
+      updateClientProviders();
+    });
   },
 
   methods: {
-    // toggleSelectedProvider(providerId) {
-    //   const isSelected = this.client.providers.includes(providerId);
-    //   if (isSelected) {
-    //     this.client.providers = this.client.providers.filter(
-    //       p => p !== providerId
-    //     );
-    //   } else {
-    //     this.client.providers.push(providerId);
-    //   }
-    // },
+    toggleSelectedProvider(providerId) {
+      const isSelected = this.client.providers.includes(providerId);
+      if (isSelected) {
+        this.client.providers = this.client.providers.filter(
+          p => p !== providerId
+        );
+      } else {
+        this.client.providers.push(providerId);
+      }
+    },
 
-    // updateClientProviders(providers) {
-    //   this.client.providers = this.client.providers.filter(pId =>
-    //     providers.find(p => p._id === pId)
-    //   );
-    // },
+    updateClientProviders(providers) {
+      this.client.providers = this.client.providers.filter(pId =>
+        providers.find(p => p._id === pId)
+      );
+    },
 
     async getClient() {
       const response = await ClientsService.getClient({
@@ -85,7 +91,6 @@ export default {
       this.client.email = response.data.email;
       this.client.phone = response.data.phone;
       this.client.providers = response.data.providers;
-      console.log(this.client.providers)
     },
 
     async updateClient() {
