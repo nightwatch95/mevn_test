@@ -61,7 +61,7 @@ export default {
       this.toggleSelectedProvider(providerId);
     });
     EventBus.$on("providers-list-changed", (providers) => {
-      updateClientProviders();
+      updateClientProviders(providers);
     });
   },
 
@@ -69,9 +69,7 @@ export default {
     toggleSelectedProvider(providerId) {
       const isSelected = this.client.providers.includes(providerId);
       if (isSelected) {
-        this.client.providers = this.client.providers.filter(
-          p => p !== providerId
-        );
+        this.client.providers = this.client.providers.filter(p => p !== providerId);
       } else {
         this.client.providers.push(providerId);
       }

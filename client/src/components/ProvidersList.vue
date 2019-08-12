@@ -74,7 +74,7 @@ export default {
     deleteProvider(id) {
       ProvidersService.deleteProvider(id);
       this.providers = this.providers.filter(p => p._id !== id);
-      EventBus.$emit('providers-list-changed');
+      EventBus.$emit('providers-list-changed', this.providers);
       //this.getProviders();
     },
     toggleProvider(provider) {

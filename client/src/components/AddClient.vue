@@ -31,6 +31,11 @@ import EventBus from "../EventBus.js";
 export default {
   name: "addClient",
 
+  components: {
+    ProvidersList,
+    AddProvider
+  },
+
   data() {
     return {
       client: {
@@ -40,11 +45,6 @@ export default {
         providers: []
       }
     };
-  },
-
-  components: {
-    ProvidersList,
-    AddProvider
   },
 
   mounted() {
@@ -66,16 +66,12 @@ export default {
       }
     },
 
-    updateClientProviders(providers) {
-      this.client.providers = this.client.providers
-        .filter(pId => providers.find(p => p._id === pId));
-    },
-
     async addClient(client) {
       await ClientsService.addClient({
         client: client
       });
       EventBus.$emit('close-modal');
+      EventBus.$emit('clients-list-changed');
     }
   }
 };
