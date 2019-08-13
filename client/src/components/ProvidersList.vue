@@ -12,7 +12,7 @@
           <div class="p-2">
             <input class="form-check-input input-margin" 
                   type="checkbox"
-                  :value=true
+                  :checked="provider.selected"
                   :id="provider._id"
                   @change="toggleProvider(provider)"/>
             <label class="form-check-label label-margin">{{ provider.name }}</label>
