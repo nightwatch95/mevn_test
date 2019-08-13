@@ -26,6 +26,7 @@
 import ClientsService from "@/services/ClientsService";
 import AddProvider from "@/components/AddProvider";
 import ProvidersList from "@/components/ProvidersList";
+import Toast from "@/components/Toast";
 import EventBus from "../EventBus.js";
 
 export default {
