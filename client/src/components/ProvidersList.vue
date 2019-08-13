@@ -12,7 +12,7 @@
           <div class="p-2">
             <input class="form-check-input input-margin" 
                   type="checkbox"
-                  :checked="provider.selected"
+                  :value=true
                   :id="provider._id"
                   @change="toggleProvider(provider)"/>
             <label class="form-check-label label-margin">{{ provider.name }}</label>
@@ -74,7 +74,7 @@ export default {
     deleteProvider(id) {
       ProvidersService.deleteProvider(id);
       this.providers = this.providers.filter(p => p._id !== id);
-      EventBus.$emit('providers-list-changed', this.providers);
+      EventBus.$emit('providers-list-changed');
       //this.getProviders();
     },
     toggleProvider(provider) {

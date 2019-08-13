@@ -96,6 +96,8 @@ export default {
         id: this.client._id,
         client: this.client
       });
+      EventBus.$emit('close-modal');
+      EventBus.$emit('clients-list-changed');
     }
   }
 };
