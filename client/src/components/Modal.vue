@@ -13,8 +13,7 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<editClient v-if="clientId != null" :id="clientId"></editClient>
-								<addClient v-else></addClient>
+								<clientForm :id="clientId"></clientForm>
 							</div>
 							<div class="modal-footer">
 								<button v-if="clientId == null" type="button" class="btn btn-primary" @click="addClient()">Add Client</button>
@@ -31,15 +30,13 @@
 
 <script>
 import EventBus from '../EventBus.js';
-import EditClient from '@/components/EditClient';
-import AddClient from '@/components/AddClient';
+import ClientForm from '@/components/ClientForm';
 
 export default {
 	name: "modal",
 
 	components: {
-		EditClient,
-		AddClient
+		ClientForm
 	},
 	data() {
 		return {
