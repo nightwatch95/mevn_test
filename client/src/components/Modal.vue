@@ -16,9 +16,13 @@
 								<clientForm :id="clientId"></clientForm>
 							</div>
 							<div class="modal-footer">
-								<button v-if="clientId == null" type="button" class="btn btn-primary" @click="addClient()">Add Client</button>
-								<button v-else type="button" class="btn btn-primary" @click="updateClient()">Save Changes</button>
-								<button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
+								<div v-if="clientId == null">
+									<button-add-client></button-add-client>
+								</div>
+								<div v-else>
+									<button-edit-client></button-edit-client>
+								</div>
+								<!-- <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button> -->
 							</div>
 						</div>
 					</div>
@@ -31,12 +35,16 @@
 <script>
 import EventBus from '../EventBus.js';
 import ClientForm from '@/components/ClientForm';
+import ButtonAddClient from '@/components/ButtonAddClient.vue'
+import ButtonEditClient from '@/components/ButtonEditClient.vue'
 
 export default {
 	name: "modal",
 
 	components: {
-		ClientForm
+		ClientForm,
+		ButtonAddClient,
+		ButtonEditClient
 	},
 	data() {
 		return {
@@ -54,12 +62,8 @@ export default {
 		});
 	},
 	methods: {
-		updateClient() {
-			EventBus.$emit('update-client');
-		},
-		addClient() {
-			EventBus.$emit('add-client');
-		}
+		
+		
 	}
 }
 </script>

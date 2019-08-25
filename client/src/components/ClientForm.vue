@@ -52,39 +52,41 @@ export default {
   },
 
   mounted() {
-	this.client._id = this.id;
-	this.getClient();
-	EventBus.$on("client-providers-changed", (providerId) => {
+    this.client._id = this.id;
+    this.getClient();
+    EventBus.$on("client-providers-changed", providerId => {
       this.toggleSelectedProvider(providerId);
-	});
-	EventBus.$on("providers-list-changed", (providers) => {
+    });
+    EventBus.$on("providers-list-changed", providers => {
       updateClientProviders(providers);
     });
-	EventBus.$on('add-client', () => {
+    EventBus.$on("add-client", () => {
       this.addClient(this.client);
-	});
-	EventBus.$on('update-client', () => {
-      this.updateClient()
+    });
+    EventBus.$on("update-client", () => {
+      this.updateClient();
     });
   },
 
   methods: {
-	toggleSelectedProvider(providerId) {
+    toggleSelectedProvider(providerId) {
       const isSelected = this.client.providers.includes(providerId);
       if (isSelected) {
-        this.client.providers = this.client.providers.filter(p => p !== providerId);
+        this.client.providers = this.client.providers.filter(
+          p => p !== providerId
+        );
       } else {
         this.client.providers.push(providerId);
       }
-	},
-	
-	updateClientProviders(providers) {
+    },
+
+    updateClientProviders(providers) {
       this.client.providers = this.client.providers.filter(pId =>
         providers.find(p => p._id === pId)
       );
-	},
-	
-	async getClient() {
+    },
+
+    async getClient() {
       const response = await ClientsService.getClient({
         id: this.client._id
       });
@@ -92,23 +94,23 @@ export default {
       this.client.email = response.data.email;
       this.client.phone = response.data.phone;
       this.client.providers = response.data.providers;
-	},
-	
-	async addClient(client) {
+    },
+
+    async addClient(client) {
       await ClientsService.addClient({
         client: client
       });
-      EventBus.$emit('close-modal');
-      EventBus.$emit('clients-list-changed');
-	},
-	
-	async updateClient() {
+      EventBus.$emit("close-modal");
+      EventBus.$emit("clients-list-changed");
+    },
+
+    async updateClient() {
       await ClientsService.updateClient({
         id: this.client._id,
         client: this.client
       });
-      EventBus.$emit('close-modal');
-      EventBus.$emit('clients-list-changed');
+      EventBus.$emit("close-modal");
+      EventBus.$emit("clients-list-changed");
     }
   }
 };
