@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ClientForm from '@/components/ClientForm.vue'
 import Clients from '@/components/Clients.vue'
 import AddProvider from '@/components/AddProvider.vue'
 import EditProvider from '@/components/EditProvider.vue'
@@ -11,11 +10,6 @@ Vue.use(Router);
 export default new Router({
 	mode: 'history',
 	routes: [
-		{
-			name: 'clientForm',
-			path: '/',
-			component: ClientForm
-		},
 		{
 			name: 'clients',
 			path: '/',

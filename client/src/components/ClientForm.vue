@@ -1,5 +1,11 @@
 <template>
   <form>
+    <div v-if="errors.length" class="alert alert-danger" role="alert">
+      <b>Please correct following errors:</b>
+      <ul>
+        <li :key="error" v-for="error in errors">{{ error }}</li>
+      </ul>
+    </div>
     <div class="form-group">
       <label>Name:</label>
       <input type="text" class="form-control" v-model="client.name" />
@@ -42,6 +48,7 @@ export default {
 
   data() {
     return {
+      errors: [],
       client: {
         name: "",
         email: "",
@@ -96,21 +103,44 @@ export default {
       this.client.providers = response.data.providers;
     },
 
+    checkForm() {
+      this.errors = [];
+      
+      if (!this.client.name) {
+        this.errors.push('Name is required');
+      }
+      if (!this.client.email || !this.client.email.includes('@')) {
+        this.errors.push('Email is required and must be valid');
+      }
+      if (!this.client.phone || !this.client.phone.length < 8)
+      {
+        this.errors.push('Phone is required and must be valid');
+      }
+      console.log(errors.length);
+      if (!this.errors.length) {
+        return true;
+      }
+    },
+
     async addClient(client) {
-      await ClientsService.addClient({
-        client: client
-      });
-      EventBus.$emit("close-modal");
-      EventBus.$emit("clients-list-changed");
+      if (this.checkForm()) {
+        await ClientsService.addClient({
+          client: client
+        });
+        EventBus.$emit("close-modal");
+        EventBus.$emit("clients-list-changed");
+      }
     },
 
     async updateClient() {
-      await ClientsService.updateClient({
-        id: this.client._id,
-        client: this.client
-      });
-      EventBus.$emit("close-modal");
-      EventBus.$emit("clients-list-changed");
+      if (this.checkForm()) {
+        await ClientsService.updateClient({
+          id: this.client._id,
+          client: this.client
+        });
+        EventBus.$emit("close-modal");
+        EventBus.$emit("clients-list-changed");
+      }
     }
   }
 };
