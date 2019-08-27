@@ -112,11 +112,9 @@ export default {
       if (!this.client.email || !this.client.email.includes('@')) {
         this.errors.push('Email is required and must be valid');
       }
-      if (!this.client.phone || !this.client.phone.length < 8)
-      {
+      if (!this.client.phone || this.client.phone.length < 8){
         this.errors.push('Phone is required and must be valid');
       }
-      console.log(errors.length);
       if (!this.errors.length) {
         return true;
       }

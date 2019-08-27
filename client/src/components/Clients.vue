@@ -12,7 +12,7 @@
               <th scope="col">Email</th>
               <th scope="col">Phone</th>
               <th scope="col">Providers</th>
-              <th scope="col">Actions</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
