@@ -73,11 +73,12 @@ export default {
     deleteProvider(id) {
       ProvidersService.deleteProvider(id);
       this.providers = this.providers.filter(p => p._id !== id);
-      EventBus.$emit('providers-list-changed');
-      //this.getProviders();
+      EventBus.$emit('providers-list-changed', this.providers);
+      this.getProviders();
     },
     toggleProvider(provider) {
-      EventBus.$emit('client-providers-changed', provider._id);
+      console.log(this.selectedProviders);
+      EventBus.$emit('client-providers-changed', provider);
     },
     async updateProvider() {
       await ProvidersService.updateProvider({
@@ -85,7 +86,6 @@ export default {
         provider: this.providerForChange
       });
       this.providerForChange = {};
-      EventBus.$emit('providers-list-changed');
     }
   }
 };

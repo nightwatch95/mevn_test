@@ -61,11 +61,11 @@ export default {
   mounted() {
     this.client._id = this.id;
     this.getClient();
-    EventBus.$on("client-providers-changed", providerId => {
-      this.toggleSelectedProvider(providerId);
+    EventBus.$on("client-providers-changed", provider => {
+      this.toggleSelectedProvider(provider);
     });
     EventBus.$on("providers-list-changed", providers => {
-      updateClientProviders(providers);
+      this.updateClientProviders(providers);
     });
     EventBus.$on("add-client", () => {
       this.addClient(this.client);
@@ -76,14 +76,14 @@ export default {
   },
 
   methods: {
-    toggleSelectedProvider(providerId) {
-      const isSelected = this.client.providers.includes(providerId);
+    toggleSelectedProvider(provider) {
+      const isSelected = this.client.providers.includes(provider);
       if (isSelected) {
         this.client.providers = this.client.providers.filter(
-          p => p !== providerId
+          p => p._id !== provider._id
         );
       } else {
-        this.client.providers.push(providerId);
+        this.client.providers.push(provider);
       }
     },
 
@@ -109,7 +109,7 @@ export default {
       if (!this.client.name) {
         this.errors.push('Name is required');
       }
-      if (!this.client.email || !this.client.email.includes('@')) {
+      if (!this.client.email || !this.validEmail(this.client.email)) {
         this.errors.push('Email is required and must be valid');
       }
       if (!this.client.phone || this.client.phone.length < 8){
@@ -120,11 +120,18 @@ export default {
       }
     },
 
+    validEmail(email) {
+      var pattern = /\S+@\S+\.\S+/;
+      return pattern.test(email);
+    },
+
     async addClient(client) {
       if (this.checkForm()) {
-        await ClientsService.addClient({
+        var response = await ClientsService.addClient({
           client: client
         });
+        // if (response.errors !== {} && response.message !== "")
+        //   this.errors.push(response.message);
         EventBus.$emit("close-modal");
         EventBus.$emit("clients-list-changed");
       }
@@ -139,7 +146,7 @@ export default {
         EventBus.$emit("close-modal");
         EventBus.$emit("clients-list-changed");
       }
-    }
+    } 
   }
 };
 </script>
