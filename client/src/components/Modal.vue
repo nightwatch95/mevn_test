@@ -9,7 +9,7 @@
 								<h5 v-if="clientId != null" class="modal-title">Edit Client</h5>
 								<h5 v-else>New Client</h5>
 								<button type="button" class="close" aria-label="Close" @click="showModal = false">
-								<span aria-hidden="true">&times;</span>
+									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
 							<div class="modal-body">
@@ -50,6 +50,7 @@ export default {
 			this.showModal = true;
 		});
 		EventBus.$on("close-modal", () => {
+			this.clientId = '';
 			this.showModal = false;
 		});
 	},

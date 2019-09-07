@@ -1,20 +1,22 @@
 <template>
   <div>
     <div class="form-check">
-      <div v-for="provider in providerOptions" v-bind:key="provider._id" class="form-row">
+      <div v-for="provider in providers" v-bind:key="provider._id" class="form-row">
         <div v-if="providerForChange._id === provider._id">
           <form class="form-inline">
-            <input type="text" class="form-control" v-model="providerForChange.name">
+            <input type="text" class="form-control" v-model="providerForChange.name" />
             <button class="btn btn-primary mx-sm-3" @click="updateProvider()">Save</button>
           </form>
         </div>
         <div class="d-flex" v-else>
           <div class="p-2">
-            <input class="form-check-input input-margin" 
-                  type="checkbox"
-                  :checked="provider.selected"
-                  :id="provider._id"
-                  @change="toggleProvider(provider)"/>
+            <input
+              class="form-check-input input-margin"
+              v-bind:value="provider"
+              v-model="selectedProviders"
+              @change="toggleProvider(provider)"
+              type="checkbox"
+            />
             <label class="form-check-label label-margin">{{ provider.name }}</label>
           </div>
           <div class="ml-auto p-2">
@@ -36,33 +38,23 @@ import EventBus from "../EventBus.js";
 
 export default {
   name: "providersList",
-  props: {
-    selectedProviders: Array
-  },
+
+  props: ["clientProviders"],
+
   data() {
     return {
       providers: [],
-      providerForChange: {}
+      providerForChange: {},
+      selectedProviders: []
     };
   },
   created: function() {
     this.getProviders();
   },
   mounted() {
-    EventBus.$on('providers-list-changed', () => {
+    EventBus.$on("providers-list-changed", () => {
       this.getProviders();
     });
-  },
-
-  computed: {
-    providerOptions() {
-      return this.providers.map(p => {
-        const copy = { ...p };
-        this.selectedProviders = this.selectedProviders || [];
-        copy.selected = this.selectedProviders.includes(p._id);
-        return copy;
-      });
-    }
   },
 
   methods: {
@@ -70,21 +62,29 @@ export default {
       const response = await ProvidersService.fetchProviders();
       this.providers = response.data;
     },
-    deleteProvider(id) {
-      ProvidersService.deleteProvider(id);
-      this.providers = this.providers.filter(p => p._id !== id);
-      EventBus.$emit('providers-list-changed', this.providers);
+    async deleteProvider(id) {
+      await ProvidersService.deleteProvider(id);
       this.getProviders();
     },
     toggleProvider(provider) {
-      EventBus.$emit('client-providers-changed', provider);
+      EventBus.$emit("client-providers-changed", this.selectedProviders);
     },
+
     async updateProvider() {
       await ProvidersService.updateProvider({
         id: this.providerForChange._id,
         provider: this.providerForChange
       });
       this.providerForChange = {};
+    }
+  },
+
+  watch: {
+    clientProviders: {
+      deep: true,
+      handler(newval, oldval) {
+        this.selectedProviders = newval;
+      }
     }
   }
 };

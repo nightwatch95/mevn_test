@@ -23,7 +23,7 @@
       <addProvider></addProvider>
     </div>
     <div class="form-group">
-      <providersList :selectedProviders="client.providers"></providersList>
+      <providersList :clientProviders="client.providers"></providersList>
     </div>
   </form>
 </template>
@@ -50,60 +50,28 @@ export default {
     return {
       errors: [],
       client: {
-        name: "",
-        email: "",
-        phone: "",
+        name: '',
+        email: '',
+        phone: '',
         providers: []
       }
     };
   },
 
   mounted() {
-    this.client._id = this.id;
-    this.getClient();
-    EventBus.$on("client-providers-changed", provider => {
-      this.toggleSelectedProvider(provider);
-    });
-    EventBus.$on("providers-list-changed", providers => {
-      this.updateClientProviders(providers);
+    this.getClient(this.$props.id);
+    EventBus.$on("client-providers-changed", (providers) => {
+      this.client.providers = providers;
     });
     EventBus.$on("add-client", () => {
       this.addClient(this.client);
     });
     EventBus.$on("update-client", () => {
-      this.updateClient();
+      this.updateClient(this.client);
     });
   },
 
   methods: {
-    toggleSelectedProvider(provider) {
-      const isSelected = this.client.providers.some(p => p._id === provider._id);
-      console.log(isSelected);
-      if (isSelected) {
-        this.client.providers = this.client.providers.filter(
-          p => p._id !== provider._id
-        );
-      } else {
-        this.client.providers.push(provider);
-      }
-    },
-
-    updateClientProviders(providers) {
-      this.client.providers = this.client.providers.filter(pId =>
-        providers.find(p => p._id === pId)
-      );
-    },
-
-    async getClient() {
-      const response = await ClientsService.getClient({
-        id: this.client._id
-      });
-      this.client.name = response.data.name;
-      this.client.email = response.data.email;
-      this.client.phone = response.data.phone;
-      this.client.providers = response.data.providers;
-    },
-
     checkForm() {
       this.errors = [];
       
@@ -126,6 +94,16 @@ export default {
       return pattern.test(email);
     },
 
+    async getClient(clientId) {
+      if (clientId != null)
+      {
+        const response = await ClientsService.getClient({
+          id: clientId
+        });
+        this.client = response.data;
+      }
+    },
+
     async addClient(client) {
       if (this.checkForm()) {
         var response = await ClientsService.addClient({
@@ -137,11 +115,11 @@ export default {
       }
     },
 
-    async updateClient() {
+    async updateClient(client) {
       if (this.checkForm()) {
         await ClientsService.updateClient({
-          id: this.client._id,
-          client: this.client
+          id: client._id,
+          client: client
         });
         this.client = {};
         EventBus.$emit("close-modal");

@@ -5,9 +5,11 @@ let Client = require('../models/client');
 
 router.post('/add', (req, res) => {
 	let clientModel = new Client(req.body.client);
-	console.log(clientModel);
 	clientModel.save((err, client) => {
-		if (err) return res.status(404).send(err);
+		if (err) {
+			console.log(err);
+			return res.status(500).send(err);
+		}
 		Client.populate(client, 'providers', (err, client) => {
 			res.send(client);
 		})
@@ -35,6 +37,7 @@ router.get('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
 	let newClient = new Client(req.body.client);
+	console.log(newClient);
 	Client.findByIdAndUpdate(req.params.id, newClient, {new: true}, (err, client) => {
 		if (err) return res.status(404).send(err);
         Client.populate(client, 'providers', (err, client) => {
