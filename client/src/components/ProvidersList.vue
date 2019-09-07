@@ -77,7 +77,6 @@ export default {
       this.getProviders();
     },
     toggleProvider(provider) {
-      console.log(this.selectedProviders);
       EventBus.$emit('client-providers-changed', provider);
     },
     async updateProvider() {

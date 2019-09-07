@@ -60,7 +60,6 @@ export default {
     showModal(id) {
       EventBus.$emit('show-modal', id);
     },
-
     async getClients() {
        let response = await ClientsService.fetchClients();
        this.clients = response.data;
@@ -69,6 +68,7 @@ export default {
     deleteClient(id) {
       ClientsService.deleteClient(id);
       EventBus.$emit('clients-list-changed');
+      this.getClients();
     }
   }
 };

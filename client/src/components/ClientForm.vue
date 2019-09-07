@@ -77,7 +77,8 @@ export default {
 
   methods: {
     toggleSelectedProvider(provider) {
-      const isSelected = this.client.providers.includes(provider);
+      const isSelected = this.client.providers.some(p => p._id === provider._id);
+      console.log(isSelected);
       if (isSelected) {
         this.client.providers = this.client.providers.filter(
           p => p._id !== provider._id
@@ -130,8 +131,7 @@ export default {
         var response = await ClientsService.addClient({
           client: client
         });
-        // if (response.errors !== {} && response.message !== "")
-        //   this.errors.push(response.message);
+        this.client = {};
         EventBus.$emit("close-modal");
         EventBus.$emit("clients-list-changed");
       }
@@ -143,6 +143,7 @@ export default {
           id: this.client._id,
           client: this.client
         });
+        this.client = {};
         EventBus.$emit("close-modal");
         EventBus.$emit("clients-list-changed");
       }
