@@ -70,6 +70,11 @@ export default {
       this.updateClient(this.client);
     });
   },
+  
+  beforeDestroy() {
+      EventBus.$off('update-client');
+      EventBus.$off('add-client');
+  },
 
   methods: {
     checkForm() {
@@ -82,13 +87,13 @@ export default {
         this.errors.push('Email is required and must be valid');
       }
       if (!this.client.phone || this.client.phone.length < 8){
-        this.errors.push('Phone is required and must be valid');
+        this.errors.push('Phone is required and must contain at least 8 characters');
       }
       if (!this.errors.length) {
         return true;
       }
     },
-
+    
     validEmail(email) {
       var pattern = /\S+@\S+\.\S+/;
       return pattern.test(email);
