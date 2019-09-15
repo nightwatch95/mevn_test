@@ -50,20 +50,20 @@ export default {
 
   data() {
     return {
-      clients: [],
-      providers: []
+      clients: []
     };
   },
   created() {
     this.getClients();
   },
   mounted() {
-    EventBus.$on("clients-list-changed", () => this.getClients());
+    EventBus.$on("clients-list-changed", this.getClients());
   },
   methods: {
     showModal(id) {
       EventBus.$emit("show-modal", id);
     },
+    
     async getClients() {
       let response = await ClientsService.fetchClients();
       this.clients = response.data;

@@ -50,9 +50,9 @@ export default {
     return {
       errors: [],
       client: {
-        name: '',
-        email: '',
-        phone: '',
+        name: "",
+        email: "",
+        phone: "",
         providers: []
       }
     };
@@ -60,7 +60,7 @@ export default {
 
   mounted() {
     this.getClient(this.$props.id);
-    EventBus.$on("client-providers-changed", (providers) => {
+    EventBus.$on("client-providers-changed", providers => {
       this.client.providers = providers;
     });
     EventBus.$on("add-client", () => {
@@ -70,38 +70,38 @@ export default {
       this.updateClient(this.client);
     });
   },
-  
+
   beforeDestroy() {
-      EventBus.$off('update-client');
-      EventBus.$off('add-client');
+    EventBus.$off("update-client");
+    EventBus.$off("add-client");
   },
 
   methods: {
     checkForm() {
       this.errors = [];
-      
       if (!this.client.name) {
-        this.errors.push('Name is required');
+        this.errors.push("Name is required");
       }
       if (!this.client.email || !this.validEmail(this.client.email)) {
-        this.errors.push('Email is required and must be valid');
+        this.errors.push("Email is required and must be valid");
       }
-      if (!this.client.phone || this.client.phone.length < 8){
-        this.errors.push('Phone is required and must contain at least 8 characters');
+      if (!this.client.phone || this.client.phone.length < 8) {
+        this.errors.push(
+          "Phone is required and must contain at least 8 characters"
+        );
       }
       if (!this.errors.length) {
         return true;
       }
     },
-    
+
     validEmail(email) {
-      var pattern = /\S+@\S+\.\S+/;
+      let pattern = /\S+@\S+\.\S+/;
       return pattern.test(email);
     },
 
     async getClient(clientId) {
-      if (clientId != null)
-      {
+      if (clientId != null) {
         const response = await ClientsService.getClient({
           id: clientId
         });
@@ -111,10 +111,9 @@ export default {
 
     async addClient(client) {
       if (this.checkForm()) {
-        var response = await ClientsService.addClient({
+        let response = await ClientsService.addClient({
           client: client
         });
-        this.client = {};
         EventBus.$emit("close-modal");
         EventBus.$emit("clients-list-changed");
       }
@@ -126,11 +125,10 @@ export default {
           id: client._id,
           client: client
         });
-        this.client = {};
         EventBus.$emit("close-modal");
         EventBus.$emit("clients-list-changed");
       }
-    } 
+    }
   }
 };
 </script>
